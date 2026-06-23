@@ -1,7 +1,6 @@
 {
   "hero": {
     "title": ["Стабильно растем", "и принимаем новые вызовы", "TravelTech индустрии"],
-    "subtitle": "Стабильно растем и развиваемся",
     "video_url": "/upload/hero.mp4",
     "stats": [
       { "value": "с 2008 года", "label": "создаем инструменты для отельеров" },
@@ -9,37 +8,89 @@
       { "value": "12 000+", "label": "клиентов работают с нами" },
       { "value": "топ-50", "label": "в рейтинге работодателей hh.ru" },
       { "value": ">1,5 млн", "label": "гостей в месяц бронируют через TravelLine" },
-      { "value": "300+", "label": "интеграций со сторонними сервисами" }
+      { "value": "300+", "label": "интеграций со сторонними сервисами" },
+      { "value": "", "label": "аккредитованая IT-компания" },
+      { "value": "", "label": "серебро в рейтинге лучших работодателей Forbes 2024 г."}
     ]
   },
-  "advantages": [
-    { "id": 1, "title": "с 2008 года", "description": "создаем инструменты<br/>для отельеров" },
-    { "id": 2, "title": "300+", "description": "сотрудников в техотделе" },
-    { "id": 3, "title": "12 000+", "description": "клиентов работают с нами" }
-  ],
   "team": [
     {
       "id": 1,
       "name": "Алексей Герасимов",
       "position": "СТО",
-      "photo_url": "/images/team/1.jpg",
-      "social_telegram": "https://t.me/",
-      "social_vk": "https://vk.com/"
+      "photo_url": "/images/team/1-aleksey-gerasimov.png"
     },
     {
       "id": 2,
       "name": "Юра Костин",
       "position": "СРО",
-      "photo_url": "/images/team/2.jpg",
-      "social_telegram": "https://t.me/",
-      "social_vk": "https://vk.com/"
+      "photo_url": "/images/team/2-yura-kostin.png"
     },
     {
       "id": 3,
       "name": "Ваня Потехин",
       "position": "старший руководитель проектов",
-      "photo_url": "/images/team/3.jpg"
+      "photo_url": "/images/team/3-vanya-potekhin.png"
+    },
+    {
+      "id": 4,
+      "name": "Костя Дмитриев",
+      "position": "Специалист по информационным системам",
+      "photo_url": "/images/team/4-kostya-dmitriev.png"
+    },
+    {
+      "id": 5,
+      "name": "Лена Мочалова",
+      "position": "руководитель HR-отдела",
+      "photo_url": "/images/team/5-lena-mochalova.png"
+    },
+    {
+      "id": 6,
+      "name": "Гасан Агаев",
+      "position": "руководитель проекта",
+      "photo_url": "/images/team/6-gasan-agaev.png"
+    },
+    {
+      "id": 7,
+      "name": "Таня Глазырина",
+      "position": "продуктовый дизайнер",
+      "photo_url": "/images/team/7-tanya-glazyrina.png"
+    },
+    {
+      "id": 8,
+      "name": "Саша Очеев",
+      "position": "инженер-программист",
+      "photo_url": "/images/team/8-sasha-ocheev.png"
+    },
+    {
+      "id": 9,
+      "name": "Настя Волкова",
+      "position": "руководитель отдела дизайна",
+      "photo_url": "/images/team/9-nastya-volkova.png"
+    },
+    {
+      "id": 10,
+      "name": "Оля Рядова",
+      "position": "руководитель отдела аналитики",
+      "photo_url": "/images/team/10-olya-ryadova.png"
+    },
+    {
+      "id": 11,
+      "name": "Женя Гермогенов",
+      "position": "старший руководитель проектов",
+      "photo_url": "/images/team/11-zhenya-germogenov.png"
+    },
+    {
+      "id": 12,
+      "name": "Игорь Егошин",
+      "position": "старший инженер-программист",
+      "photo_url": "/images/team/12-igor-egoshin.png"
+    },
+    {
+      "id": 13,
+      "name": "Настя Ягодарова",
+      "position": "руководитель проекта",
+      "photo_url": "/images/team/13-nastya-yagodarova.png"
     }
-  ],
-  "vacancies": []
+  ]
 }

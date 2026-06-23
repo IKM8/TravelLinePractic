@@ -20,9 +20,32 @@ const readData = () => {
   }
 };
 
+const writeData = (data) => {
+  try {
+    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf8');
+    return true;
+  } catch (error) {
+    throw new Error('Не удалось записать data.json');
+  }
+};
+
 app.get('/api/page-data', (req, res) => {
-  const data = readData();
-  res.json(data);
+  try {
+    const data = readData();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/page-data', (req, res) => {
+  try {
+    const data = req.body;
+    writeData(data);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.listen(PORT, () => {
