@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "title": ["Стабильно растем", "и принимаем новые вызовы", "TravelTech индустрии"],
+    "subtitle": "Стабильно растем и развиваемся",
+    "video_url": "/upload/hero.mp4",
+    "stats": [
+      { "value": "с 2008 года", "label": "создаем инструменты для отельеров" },
+      { "value": "300+", "label": "сотрудников в техотделе и более 700 в компании" },
+      { "value": "12 000+", "label": "клиентов работают с нами" },
+      { "value": "топ-50", "label": "в рейтинге работодателей hh.ru" },
+      { "value": ">1,5 млн", "label": "гостей в месяц бронируют через TravelLine" },
+      { "value": "300+", "label": "интеграций со сторонними сервисами" }
+    ]
+  },
+  "advantages": [
+    { "id": 1, "title": "с 2008 года", "description": "создаем инструменты<br/>для отельеров" },
+    { "id": 2, "title": "300+", "description": "сотрудников в техотделе" },
+    { "id": 3, "title": "12 000+", "description": "клиентов работают с нами" }
+  ],
+  "team": [
+    {
+      "id": 1,
+      "name": "Алексей Герасимов",
+      "position": "СТО",
+      "photo_url": "/images/team/1.jpg",
+      "social_telegram": "https://t.me/",
+      "social_vk": "https://vk.com/"
+    },
+    {
+      "id": 2,
+      "name": "Юра Костин",
+      "position": "СРО",
+      "photo_url": "/images/team/2.jpg",
+      "social_telegram": "https://t.me/",
+      "social_vk": "https://vk.com/"
+    },
+    {
+      "id": 3,
+      "name": "Ваня Потехин",
+      "position": "старший руководитель проектов",
+      "photo_url": "/images/team/3.jpg"
+    }
+  ],
+  "vacancies": []
+}
