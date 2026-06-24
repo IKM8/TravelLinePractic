@@ -162,6 +162,40 @@ function AdminPanel() {
           }} style={s.btnAdd}>+ Добавить год</button>
         </Section>
 
+        {/* -------------------- BRANDS -------------------- */}
+        <Section title="Бренды">
+          {data.brands.map((brand, i) => (
+            <div key={brand.id} style={s.card}>
+              <div style={s.cardFields}>
+                <input value={brand.name} placeholder="Название"
+                  onChange={e => {
+                    const arr = [...data.brands];
+                    arr[i] = { ...arr[i], name: e.target.value };
+                    update(['brands'], arr);
+                  }}
+                  style={s.input} />
+                <input value={brand.logo} placeholder="Путь к логотипу"
+                  onChange={e => {
+                    const arr = [...data.brands];
+                    arr[i] = { ...arr[i], logo: e.target.value };
+                    update(['brands'], arr);
+                  }}
+                  style={s.input} />
+              </div>
+              <div style={s.cardActions}>
+                <button onClick={() => {
+                  const arr = [...data.brands];
+                  arr.splice(i, 1);
+                  update(['brands'], arr);
+                }} style={s.btnDanger}>Удалить</button>
+              </div>
+            </div>
+          ))}
+          <button onClick={() => {
+            update(['brands'], [...data.brands, { id: nextId++, name: '', logo: '' }]);
+          }} style={s.btnAdd}>+ Добавить бренд</button>
+        </Section>
+
         {/* -------------------- SAVE -------------------- */}
         <div style={s.saveBar}>
           <button onClick={save} disabled={saving} style={{

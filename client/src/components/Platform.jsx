@@ -31,7 +31,7 @@ function calcMinHeight(n) {
   return n * card + (n - 1) * gap + year + buf;
 }
 
-function Platform({ data }) {
+function Platform({ data, brands }) {
   const chartRef = useRef(null);
   const [dirs, setDirs] = useState({});
 
@@ -92,6 +92,23 @@ function Platform({ data }) {
             );
           })}
       </div>
+
+      {brands && brands.length > 0 && (
+        <div className="tl-platform__brands">
+          <div className="tl-brands__track">
+            {brands.map((brand) => (
+              <div key={brand.id} className="tl-brands__item">
+                <img src={brand.logo} alt={brand.name} />
+              </div>
+            ))}
+            {brands.map((brand) => (
+              <div key={'dup-'+brand.id} className="tl-brands__item">
+                <img src={brand.logo} alt={brand.name} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

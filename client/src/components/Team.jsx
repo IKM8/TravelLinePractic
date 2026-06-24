@@ -1,6 +1,3 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
-
 function Team({ data }) {
   return (
     <section className="tl-team" id="team">
@@ -61,35 +58,30 @@ function Team({ data }) {
         </div>
       </div>
       <div className="tl-team__slider-wrapper">
-        <Swiper
-          modules={[Autoplay]}
-          loop={true}
-          autoplay={{
-            delay: 0,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: false,
-            stopOnLastSlide: false,
-          }}
-          speed={10000}
-          slidesPerView="auto"
-          spaceBetween={20}
-          className="tl-team__slider"
-          allowTouchMove={false}
-        >
-          {data.map((member, i) => (
-            <SwiperSlide key={member.id || i} className="tl-team__slide">
-              <div className="tl-team__card">
-                <div className="tl-team__card-image">
-                  <img src={member.photo_url} alt={member.name} />
-                  <div className="tl-team__card-overlay">
-                    <span className="tl-team__card-name">{member.name}</span>
-                    <span className="tl-team__card-position">{member.position}</span>
-                  </div>
+        <div className="tl-team__track">
+          {data.map((member) => (
+            <div key={member.id} className="tl-team__card">
+              <div className="tl-team__card-image">
+                <img src={member.photo_url} alt={member.name} />
+                <div className="tl-team__card-overlay">
+                  <span className="tl-team__card-name">{member.name}</span>
+                  <span className="tl-team__card-position">{member.position}</span>
                 </div>
               </div>
-            </SwiperSlide>
+            </div>
           ))}
-        </Swiper>
+          {data.map((member) => (
+            <div key={'dup-'+member.id} className="tl-team__card">
+              <div className="tl-team__card-image">
+                <img src={member.photo_url} alt={member.name} />
+                <div className="tl-team__card-overlay">
+                  <span className="tl-team__card-name">{member.name}</span>
+                  <span className="tl-team__card-position">{member.position}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

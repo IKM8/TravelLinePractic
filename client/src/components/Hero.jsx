@@ -10,10 +10,10 @@ function Hero({ data }) {
   }, []);
 
   return (
-    <section className="section hero" id="hero">
+    <section className="tl-hero" id="hero">
       <video
         ref={videoRef}
-        className="hero__video video-src"
+        className="tl-hero__video"
         autoPlay
         loop
         muted
@@ -23,7 +23,7 @@ function Hero({ data }) {
         src={data.video_url}
       />
       
-      <h2 className="hero__title heading heading--type-h1">
+      <h2 className="tl-hero__title">
         {data.title[0]}<br />
         {data.title[1]}<br />
         {data.title[2]}

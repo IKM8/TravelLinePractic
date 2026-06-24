@@ -25,7 +25,7 @@ function PublicPage() {
       <Hero data={data.hero} />
       <Advantages data={data.hero} />
       <Team data={data.team} />
-      <Platform data={data.platform} />
+      <Platform data={data.platform} brands={data.brands} />
     </div>
   );
 }

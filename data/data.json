@@ -240,6 +240,53 @@
       ]
     }
   ],
+  "brands": [
+    {
+      "id": 1,
+      "name": "Catherine Art",
+      "logo": "/images/brands/catherine-art.svg"
+    },
+    {
+      "id": 2,
+      "name": "Cosmos",
+      "logo": "/images/brands/cosmos.svg"
+    },
+    {
+      "id": 3,
+      "name": "Helvetia",
+      "logo": "/images/brands/helvetia.svg"
+    },
+    {
+      "id": 4,
+      "name": "Ohta Park",
+      "logo": "/images/brands/ohta-park.svg"
+    },
+    {
+      "id": 5,
+      "name": "RUS",
+      "logo": "/images/brands/rus.svg"
+    },
+    {
+      "id": 6,
+      "name": "Sochi Park",
+      "logo": "/images/brands/sochi-park.svg"
+    },
+    {
+      "id": 7,
+      "name": "Premium Park",
+      "logo": "/images/brands/premium-park.svg"
+    },
+    {
+      "id": 8,
+      "name": "Aquaclub",
+      "logo": "/images/brands/aquaclub.svg"
+    },
+    {
+      "id": 9,
+      "name": "RZD Health",
+      "logo": "/images/brands/rzd-health.svg"
+    }
+  ],
   "team": [
     {
       "id": 1,
