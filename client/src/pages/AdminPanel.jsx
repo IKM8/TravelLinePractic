@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { updateData } from '../utils/updateData';
+import presetIcons from '../utils/icons';
 
 const API = '/api/page-data';
 
@@ -151,6 +152,16 @@ function AdminPanel() {
           }} style={s.btnAdd}>+ Добавить сотрудника</button>
         </Section>
 
+        {/* -------------------- PLATFORM -------------------- */}
+        <Section title={`Платформа`}>
+          {data.platform.map((group, gi) => (
+            <YearBlock key={gi} group={group} gi={gi} data={data} update={update} />
+          ))}
+          <button onClick={() => {
+            update(['platform'], [...data.platform, { year: '', entries: [{ title: '', description: '', icon: 'founding', iconColor: '#507bce' }] }]);
+          }} style={s.btnAdd}>+ Добавить год</button>
+        </Section>
+
         {/* -------------------- SAVE -------------------- */}
         <div style={s.saveBar}>
           <button onClick={save} disabled={saving} style={{
@@ -185,6 +196,149 @@ function Label({ children }) {
   return <div style={s.label}>{children}</div>;
 }
 
+function YearBlock({ group, gi, data, update }) {
+  const [open, setOpen] = useState(false);
+  const count = group.entries.length;
+  return (
+    <div style={{ ...s.card, flexDirection: 'column' }}>
+      <button onClick={() => setOpen(!open)} style={{
+        ...s.sectionHeader, display: 'flex', alignItems: 'center', gap: 10,
+        width: '100%', cursor: 'pointer', background: 'none', border: 'none', padding: 0,
+      }}>
+        <span style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)', transition: '0.2s', fontSize: 13, flexShrink: 0 }}>▶</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 0 }}>
+          <input value={group.year} placeholder="Год"
+            onChange={e => {
+              const arr = [...data.platform];
+              arr[gi] = { ...arr[gi], year: e.target.value };
+              update(['platform'], arr);
+            }}
+            onClick={e => e.stopPropagation()}
+            style={{ ...s.input, maxWidth: 100, margin: 0, padding: '4px 10px', fontSize: 15, fontWeight: 600 }} />
+          <span style={{ fontSize: 13, color: '#767e9b' }}>{count} {count === 1 ? 'продукт' : 'продуктов'}</span>
+        </div>
+        <button onClick={e => {
+          e.stopPropagation();
+          const arr = [...data.platform];
+          arr.splice(gi, 1);
+          update(['platform'], arr);
+        }} style={{ ...s.btnDanger, marginLeft: 'auto', flexShrink: 0 }}>Удалить</button>
+      </button>
+      {open && (
+        <div style={{ marginTop: 16 }}>
+          {group.entries.map((entry, ei) => (
+            <PlatformEntry key={ei} entry={entry} ei={ei} gi={gi} data={data} update={update} />
+          ))}
+          <button onClick={() => {
+            const arr = [...data.platform];
+            const entries = [...arr[gi].entries, { title: '', description: '', icon: 'star', iconColor: '#507bce' }];
+            arr[gi] = { ...arr[gi], entries };
+            update(['platform'], arr);
+          }} style={s.btnAddSmall}>+ Продукт</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PlatformEntry({ entry, ei, gi, data, update }) {
+  return (
+    <div style={s.subCard}>
+      <div style={s.fieldRow}>
+        <input value={entry.title} placeholder="Название"
+          onChange={e => {
+            const arr = [...data.platform];
+            const entries = [...arr[gi].entries];
+            entries[ei] = { ...entries[ei], title: e.target.value };
+            arr[gi] = { ...arr[gi], entries };
+            update(['platform'], arr);
+          }}
+          style={s.input} />
+      </div>
+      <div style={s.fieldRow}>
+        <input value={entry.description || ''} placeholder="Краткое описание"
+          onChange={e => {
+            const arr = [...data.platform];
+            const entries = [...arr[gi].entries];
+            entries[ei] = { ...entries[ei], description: e.target.value };
+            arr[gi] = { ...arr[gi], entries };
+            update(['platform'], arr);
+          }}
+          style={s.input} />
+      </div>
+      <div style={s.fieldRow}>
+        <textarea value={entry['extra-description'] || ''} placeholder="Подробное описание"
+          onChange={e => {
+            const arr = [...data.platform];
+            const entries = [...arr[gi].entries];
+            entries[ei] = { ...entries[ei], 'extra-description': e.target.value };
+            arr[gi] = { ...arr[gi], entries };
+            update(['platform'], arr);
+          }}
+          style={{ ...s.input, minHeight: 60, resize: 'vertical' }} />
+      </div>
+      <div style={s.fieldRow}>
+        <div style={s.iconPickerLabel}>Иконка:</div>
+        <div style={s.iconGrid}>
+          {presetIcons.map(ic => (
+            <div key={ic.id}
+              onClick={() => {
+                const arr = [...data.platform];
+                const entries = [...arr[gi].entries];
+                entries[ei] = { ...entries[ei], icon: ic.id };
+                arr[gi] = { ...arr[gi], entries };
+                update(['platform'], arr);
+              }}
+              style={{
+                ...s.iconOption,
+                borderColor: entry.icon === ic.id ? '#507bce' : '#e0e3ed',
+                background: entry.icon === ic.id ? '#eef3ff' : '#fff',
+              }}>
+              <svg viewBox={ic.vb || '0 0 24 24'} fill="none" stroke="#507bce" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+                {[ic.path, ic.extra, ic.extra2, ic.extra3, ic.extra4, ic.extra5, ic.extra6, ic.extra7, ic.extra8, ic.extra9].filter(Boolean).map((d, k) => {
+                  const p = ic.pathProps?.[k];
+                  return <path key={k} d={d} fill={p?.fill || 'none'} stroke={p?.stroke || '#507bce'} strokeWidth={p?.strokeWidth ?? 2.5} fillRule={p?.fillRule} />;
+                })}
+                {ic.circles && ic.circles.map((c, i) => <circle key={'c'+i} cx={c.cx} cy={c.cy} r={c.r} fill={c.fill || 'none'} />)}
+                {ic.rects && ic.rects.map((r, i) => <rect key={'r'+i} x={r.x} y={r.y} width={r.w} height={r.h} rx={r.rx || 0} fill={r.fill || 'none'} stroke="#507bce" strokeWidth="2.5" />)}
+              </svg>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={s.fieldRow}>
+        <div style={s.iconPickerLabel}>Цвет:</div>
+        <div style={s.iconGrid}>
+          {['#507bce','#227bdd','#a456c3','#48af45','#eb4836','#6667d4','#20a781','#b9d950','#00a2bc','#d86ab3'].map(c => (
+            <div key={c} onClick={() => {
+              const arr = [...data.platform];
+              const entries = [...arr[gi].entries];
+              entries[ei] = { ...entries[ei], iconColor: c };
+              arr[gi] = { ...arr[gi], entries };
+              update(['platform'], arr);
+            }}
+              style={{
+                ...s.colorOption,
+                background: c,
+                outline: entry.iconColor === c || (!entry.iconColor && c === '#507bce') ? '3px solid #323e59' : 'none',
+                outlineOffset: 2,
+              }} />
+          ))}
+        </div>
+      </div>
+      <div style={s.cardActions}>
+        <button onClick={() => {
+          const arr = [...data.platform];
+          const entries = [...arr[gi].entries];
+          entries.splice(ei, 1);
+          arr[gi] = { ...arr[gi], entries };
+          update(['platform'], arr);
+        }} style={s.btnDanger}>Удалить продукт</button>
+      </div>
+    </div>
+  );
+}
+
 const s = {
   loading: { padding: 40, fontFamily: 'Manrope, sans-serif', fontSize: 18, color: '#767e9b' },
   page: { fontFamily: 'Manrope, sans-serif', background: '#f5f6fa', minHeight: '100vh' },
@@ -213,6 +367,24 @@ const s = {
   btnDanger: {
     background: '#fff', color: '#c62828', border: '1.5px solid #ffd0d0',
     padding: '6px 14px', borderRadius: 8, fontSize: 13, cursor: 'pointer', fontWeight: 500,
+  },
+  subCard: {
+    border: '1px solid #e0e3ed', borderRadius: 10, padding: 16, marginBottom: 10,
+    background: '#fff',
+  },
+  fieldRow: { marginBottom: 8 },
+  iconPickerLabel: { fontSize: 12, fontWeight: 600, color: '#767e9b', marginBottom: 6 },
+  iconGrid: { display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 },
+  iconOption: {
+    width: 32, height: 32, borderRadius: 8, border: '2px solid #e0e3ed',
+    display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+  },
+  colorOption: {
+    width: 28, height: 28, borderRadius: '50%', cursor: 'pointer',
+  },
+  btnAddSmall: {
+    background: 'none', color: '#507bce', border: '2px dashed #c8ccd8',
+    padding: '8px 16px', borderRadius: 8, fontSize: 13, cursor: 'pointer', fontWeight: 500, marginTop: 4, width: '100%',
   },
   btnAdd: {
     background: 'none', color: '#507bce',     border: '2px dashed #c8ccd8',

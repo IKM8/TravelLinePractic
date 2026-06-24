@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Advantages from '../components/Advantages';
 import Team from '../components/Team';
+import Platform from '../components/Platform';
 
 function PublicPage() {
   const [data, setData] = useState(null);
@@ -24,6 +25,7 @@ function PublicPage() {
       <Hero data={data.hero} />
       <Advantages data={data.hero} />
       <Team data={data.team} />
+      <Platform data={data.platform} />
     </div>
   );
 }
