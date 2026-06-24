@@ -1,96 +1,336 @@
 {
   "hero": {
-    "title": ["Стабильно растем", "и принимаем новые вызовы", "TravelTech индустрии"],
+    "title": [
+      "Стабильно растем",
+      "и принимаем новые вызовы",
+      "TravelTech индустрии"
+    ],
+    "subtitle": "Блок-герой с видео и заголовком",
     "video_url": "/upload/hero.mp4",
     "stats": [
-      { "value": "с 2008 года", "label": "создаем инструменты для отельеров" },
-      { "value": "300+", "label": "сотрудников в техотделе и более 700 в компании" },
-      { "value": "12 000+", "label": "клиентов работают с нами" },
-      { "value": "топ-50", "label": "в рейтинге работодателей hh.ru" },
-      { "value": ">1,5 млн", "label": "гостей в месяц бронируют через TravelLine" },
-      { "value": "300+", "label": "интеграций со сторонними сервисами" },
-      { "value": "", "label": "аккредитованая IT-компания" },
-      { "value": "", "label": "серебро в рейтинге лучших работодателей Forbes 2024 г."}
+      {
+        "value": "с 2008 года",
+        "label": "создаем инструменты для отельеров"
+      },
+      {
+        "value": "300+",
+        "label": "сотрудников в техотделе и более 700 в компании"
+      },
+      {
+        "value": "12 000+",
+        "label": "клиентов работают с нами"
+      },
+      {
+        "value": "топ-50",
+        "label": "в рейтинге работодателей hh.ru"
+      },
+      {
+        "value": ">1,5 млн",
+        "label": "гостей в месяц бронируют через TravelLine"
+      },
+      {
+        "value": "300+",
+        "label": "интеграций со сторонними сервисами"
+      },
+      {
+        "value": "",
+        "label": "аккредитованая IT-компания"
+      },
+      {
+        "value": "",
+        "label": "серебро в рейтинге лучших работодателей Forbes 2024 г."
+      }
     ]
   },
+  "platform": [
+    {
+      "year": "2008",
+      "entries": [
+        {
+          "title": "Founding",
+          "description": "Компания основана",
+          "icon": "founding",
+          "iconColor": "#507bce"
+        }
+      ]
+    },
+    {
+      "year": "2009",
+      "entries": [
+        {
+          "title": "Extranet",
+          "description": "Личный кабинет отельера",
+          "icon": "extranet",
+          "iconColor": "#507bce"
+        },
+        {
+          "title": "Booking Engine",
+          "description": "Модуль бронирования для сайта отеля",
+          "extra-description": "Позволяет забронировать проживание и дополнительные услуги на сайте отеля. Это флагманский продукт компании, который соединяет гостя и гостиницу.",
+          "icon": "booking-engine",
+          "iconColor": "#227bdd"
+        }
+      ]
+    },
+    {
+      "year": "2011",
+      "entries": [
+        {
+          "title": "PMS Integration",
+          "description": "Интеграция с АСУ (автоматизированными системами управления)",
+          "extra-description": "Автоматизирует процессы продаж в гостинице через платформу TravelLine. Все данные о бронированиях, ценах, количестве свободных номеров и ограничениях на продажу номеров автоматически синхронизируются с PMS (системой управления гостиницей).",
+          "icon": "pms",
+          "iconColor": "#507bce"
+        }
+      ]
+    },
+    {
+      "year": "2012",
+      "entries": [
+        {
+          "title": "Analytics",
+          "description": "Модуль аналитики внутри личного кабинета",
+          "extra-description": "Собирает важные метрики производительности отеля на основе данных платформы TravelLine и визуализирует их. Позволяет менеджерам отеля решать ежедневные задачи и принимать обоснованные решения.",
+          "icon": "analytics",
+          "iconColor": "#507bce"
+        }
+      ]
+    },
+    {
+      "year": "2013",
+      "entries": [
+        {
+          "title": "Channel Manager",
+          "description": "Менеджер каналов бронирования отеля и гостиницы",
+          "extra-description": "Упрощает работу отеля с более чем 130 каналами продаж. Это геораспределенный сервис, синхронизирующий цены и квоту между отелем и нашими партнерами (Яндекс, Островок, Забронируй, Суточно.ru и др)",
+          "icon": "channel-manager",
+          "iconColor": "#a456c3"
+        }
+      ]
+    },
+    {
+      "year": "2014",
+      "entries": [
+        {
+          "title": "Rate Shopper",
+          "description": "Модуль для анализа цен конкурентов",
+          "extra-description": "Анализирует цены конкурентных отелей каждый день. Отельер настраивает когда, у кого и на какой период собирать цены, а Rate Shopper готовит для него графики и отчеты.",
+          "icon": "rate-shopper",
+          "iconColor": "#507bce"
+        }
+      ]
+    },
+    {
+      "year": "2016",
+      "entries": [
+        {
+          "title": "WebPMS",
+          "description": "Система управления для отелей и гостиниц",
+          "extra-description": "Позволяет отельерам следить за бронями, номерами и доходом из любой точки мира, где есть интернет.",
+          "icon": "webpms",
+          "iconColor": "#eb4836"
+        },
+        {
+          "title": "Reputation",
+          "description": "Модуль для управление онлайн-репутацией отеля",
+          "extra-description": "Делает сбор новых отзывов об отеле в интернете, чтобы клиентам не пришлось собирать их вручную. Помогает отвечать на отзывы автоматически, добавлять отзывы на официальный сайт.",
+          "icon": "reputation",
+          "iconColor": "#6667d4"
+        },
+        {
+          "title": "Express",
+          "description": "Конструктор гостиничного сайта",
+          "extra-description": "Позволяет отелям и гостиницам самостоятельно создавать свои сайты, используя адаптивные темы и структуру, разработанные нашими экспертами.",
+          "icon": "express",
+          "iconColor": "#20a781"
+        }
+      ]
+    },
+    {
+      "year": "2017",
+      "entries": [
+        {
+          "title": "Мобильное приложение TL: Extranet",
+          "description": "Личный кабинет для мобильных устройств.",
+          "icon": "mobile-extranet",
+          "iconColor": "#48af45"
+        }
+      ]
+    },
+    {
+      "year": "2018",
+      "entries": [
+        {
+          "title": "Price Optimizer",
+          "description": "Модуль для гибкого управление ценами",
+          "extra-description": "Помогает отелям автоматизировать работу с динамичным ценообразованием. Включает мониторинг цен конкурентов и автоматический выбор оптимального уровня цены на основе данных о загрузке отеля и текущей рыночной ситуации.",
+          "icon": "price-optimizer",
+          "iconColor": "#507bce"
+        }
+      ]
+    },
+    {
+      "year": "2020",
+      "entries": [
+        {
+          "title": "Интеграция с CRM",
+          "description": "Позволяет отелям работать с CRM (система управления взаимоотношениями с клиентами), интегрирует личный кабинет TravelLine с системами Битрикс24 и amoCRM.",
+          "icon": "crm-integration",
+          "iconColor": "#b9d950"
+        }
+      ]
+    },
+    {
+      "year": "2021",
+      "entries": [
+        {
+          "title": "ЛК Гостя",
+          "description": "Личный кабинет гостя в модуле бронирования",
+          "extra-description": "Позволяет гостю работать с бронированием и отслеживать накопления в программе лояльности.",
+          "icon": "lk-guest",
+          "iconColor": "#507bce"
+        },
+        {
+          "title": "Order Management",
+          "description": "Модуль онлайн управления заказами",
+          "extra-description": "Автоматизирует и упрощает процесс работы с онлайн-платежами​.",
+          "icon": "order-management",
+          "iconColor": "#507bce"
+        },
+        {
+          "title": "Loyality",
+          "description": "Программа лояльности",
+          "extra-description": "Дает возможность отелю настраивать собственную программу лояльности или интегрировать внешнюю.",
+          "icon": "loyalty",
+          "iconColor": "#d86ab3"
+        },
+        {
+          "title": "Reactor",
+          "description": "Единая UI платформа",
+          "extra-description": "Содержит библиотеку визуальных компонентов и инструменты взаимодействия с пользователями.",
+          "icon": "reactor",
+          "iconColor": "#00a2bc"
+        }
+      ]
+    },
+    {
+      "year": "2024",
+      "entries": [
+        {
+          "title": "Billing",
+          "description": "Внутрення биллинговая система",
+          "extra-description": "Автоматизирует процессы учета контрагентов, расчета вознаграждения, интеграции с учетными системами, выставления документов, контроля дебиторской задолженности и отправки уведомлений.",
+          "icon": "billing",
+          "iconColor": "#507bce"
+        },
+        {
+          "title": "GMS",
+          "description": "Инструмент для анализа и общения с гостями",
+          "extra-description": "Автоматически формирует сегменты гостей, анализирует их по множесту параметров, позволяет отправлять письма и сообщения гостям.",
+          "icon": "gms",
+          "iconColor": "#507bce"
+        },
+        {
+          "title": "Partner API",
+          "description": "Набор публичных API компонентов платформы TravelLine",
+          "extra-description": "Позволяет внешним системам устанавливать интеграции с платформой TravelLine.",
+          "icon": "partner-api",
+          "iconColor": "#227bdd"
+        }
+      ]
+    }
+  ],
   "team": [
     {
       "id": 1,
       "name": "Алексей Герасимов",
       "position": "СТО",
-      "photo_url": "/images/team/1-aleksey-gerasimov.png"
+      "photo_url": "/images/team/1-aleksey-gerasimov.png",
+      "links": []
     },
     {
       "id": 2,
       "name": "Юра Костин",
       "position": "СРО",
-      "photo_url": "/images/team/2-yura-kostin.png"
+      "photo_url": "/images/team/2-yura-kostin.png",
+      "links": []
     },
     {
       "id": 3,
       "name": "Ваня Потехин",
       "position": "старший руководитель проектов",
-      "photo_url": "/images/team/3-vanya-potekhin.png"
+      "photo_url": "/images/team/3-vanya-potekhin.png",
+      "links": []
     },
     {
       "id": 4,
       "name": "Костя Дмитриев",
       "position": "Специалист по информационным системам",
-      "photo_url": "/images/team/4-kostya-dmitriev.png"
+      "photo_url": "/images/team/4-kostya-dmitriev.png",
+      "links": []
     },
     {
       "id": 5,
       "name": "Лена Мочалова",
       "position": "руководитель HR-отдела",
-      "photo_url": "/images/team/5-lena-mochalova.png"
+      "photo_url": "/images/team/5-lena-mochalova.png",
+      "links": []
     },
     {
       "id": 6,
       "name": "Гасан Агаев",
       "position": "руководитель проекта",
-      "photo_url": "/images/team/6-gasan-agaev.png"
+      "photo_url": "/images/team/6-gasan-agaev.png",
+      "links": []
     },
     {
       "id": 7,
       "name": "Таня Глазырина",
       "position": "продуктовый дизайнер",
-      "photo_url": "/images/team/7-tanya-glazyrina.png"
+      "photo_url": "/images/team/7-tanya-glazyrina.png",
+      "links": []
     },
     {
       "id": 8,
       "name": "Саша Очеев",
       "position": "инженер-программист",
-      "photo_url": "/images/team/8-sasha-ocheev.png"
+      "photo_url": "/images/team/8-sasha-ocheev.png",
+      "links": []
     },
     {
       "id": 9,
       "name": "Настя Волкова",
       "position": "руководитель отдела дизайна",
-      "photo_url": "/images/team/9-nastya-volkova.png"
+      "photo_url": "/images/team/9-nastya-volkova.png",
+      "links": []
     },
     {
       "id": 10,
       "name": "Оля Рядова",
       "position": "руководитель отдела аналитики",
-      "photo_url": "/images/team/10-olya-ryadova.png"
+      "photo_url": "/images/team/10-olya-ryadova.png",
+      "links": []
     },
     {
       "id": 11,
       "name": "Женя Гермогенов",
       "position": "старший руководитель проектов",
-      "photo_url": "/images/team/11-zhenya-germogenov.png"
+      "photo_url": "/images/team/11-zhenya-germogenov.png",
+      "links": []
     },
     {
       "id": 12,
       "name": "Игорь Егошин",
       "position": "старший инженер-программист",
-      "photo_url": "/images/team/12-igor-egoshin.png"
+      "photo_url": "/images/team/12-igor-egoshin.png",
+      "links": []
     },
     {
       "id": 13,
       "name": "Настя Ягодарова",
       "position": "руководитель проекта",
-      "photo_url": "/images/team/13-nastya-yagodarova.png"
+      "photo_url": "/images/team/13-nastya-yagodarova.png",
+      "links": []
     }
   ]
 }
