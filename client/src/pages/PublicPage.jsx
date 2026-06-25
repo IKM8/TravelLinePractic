@@ -7,6 +7,7 @@ import Platform from '../components/Platform';
 import Directions from '../components/Directions';
 import Vacancies from '../components/Vacancies';
 import Gallery from '../components/Gallery';
+import Bonus from '../components/Bonus';
 import Work from '../components/Work';
 
 function PublicPage() {
@@ -34,6 +35,7 @@ function PublicPage() {
       <Vacancies data={data.vacancies} />
       <Gallery data={data.gallery}/>
       <Work data={data.work} />
+      <Bonus data={data.bonus} />
     </div>
   );
 }

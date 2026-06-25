@@ -1,13 +1,5 @@
 import { useRef, useEffect } from 'react';
 
-const IMAGE_SIZES = [
-  { maxW: '800px', w: 800, h: 525 },
-  { maxW: '590px', w: 590, h: 388 },
-  { maxW: '800px', w: 800, h: 525 },
-  { maxW: '590px', w: 590, h: 388 },
-  { maxW: '800px', w: 800, h: 525 },
-];
-
 function Work({ data }) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
@@ -55,8 +47,6 @@ function Work({ data }) {
     };
   }, [data]);
 
-  let imageIndex = 0;
-
   return (
     <section className="tl-work" id="work" ref={sectionRef}>
       <div className="tl-work__pin">
@@ -68,14 +58,15 @@ function Work({ data }) {
 
           {data.items.map((item, i) => {
             if (item.type === 'image') {
-              const s = IMAGE_SIZES[imageIndex++] || { maxW: '590px', w: 590, h: 388 };
+              const imgItems = data.items.filter(it => it.type === 'image');
+              const imgIdx = imgItems.indexOf(item);
+              const cls = imgIdx % 2 === 0 ? 'tl-work__item--wide' : 'tl-work__item--narrow';
               return (
-                <div key={i} className="tl-work__item">
+                <div key={i} className={`tl-work__item ${cls}`}>
                   <img
                     src={`/images/gallery/${item.src}`}
                     alt=""
-                    width={s.w} height={s.h}
-                    style={{ maxWidth: s.maxW }}
+                    width="800" height="525"
                   />
                 </div>
               );
