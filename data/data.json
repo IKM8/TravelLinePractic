@@ -535,5 +535,32 @@
         "content": "<p>Мы обеспечиваем безопасность сложных систем и продуктов, гарантируя надежную защиту для клиентов и сотрудников TravelLine. Наши решения соответствуют высоким стандартам информационной безопасности (ИБ). Применяем смелые и инновационные подходы.</p><p>Что делаем внутри компании:</p><ul><li>разрабатываем и внедряем требования ИБ</li><li>консультируем и обучаем по тематике ИБ</li><li>проводим аудиты на соответствие принятым мерам по защите информации</li><li>расследуем инциденты ИБ</li><li>анализируем защищенность разрабатываемых в компании проектов</li></ul><p>Наши технологии:</p><p>Секретны настолько, что мы не можем о них рассказать.</p>"
       }
     ]
+  },
+  "vacancies": {
+    "title": "Создаем инструменты",
+    "subtitle": "Упрощаем жизнь отельерам и путешественникам",
+    "listTitle": "Ищем прямо сейчас",
+    "items": [
+      {
+        "id": 101,
+        "title": "Senior Site Reliability Engineer (SRE)",
+        "location": "удаленно",
+        "link": "https://kazan.hh.ru/vacancy/132543183?hhtmFrom=employer_vacancies"
+      },
+      {
+        "id": 102,
+        "title": "Аналитик данных (финансовое направление)",
+        "location": "удаленно",
+        "link": "https://kazan.hh.ru/vacancy/133500742?hhtmFrom=employer_vacancies"
+      },
+      {
+        "id": 103,
+        "title": "Python Developer AI team (в офис, г. Йошкар-Ола)",
+        "location": "Йошкар-Ола",
+        "link": "https://yoshkar-ola.hh.ru/vacancy/132518636"
+      }
+    ],
+    "moreText": "Еще больше вакансий на HeadHunter",
+    "moreLink": "https://yoshkar-ola.hh.ru/search/vacancy?from=employerPage&hhtmFrom=employer&professional_role=156&professional_role=160&professional_role=10&professional_role=12&professional_role=150&professional_role=25&professional_role=165&professional_role=34&professional_role=36&professional_role=73&professional_role=155&professional_role=96&professional_role=164&professional_role=157&professional_role=107&professional_role=112&professional_role=113&professional_role=148&professional_role=114&professional_role=116&professional_role=121&professional_role=124&professional_role=125&professional_role=126&search_field=name&search_field=company_name&search_field=description&enable_snippets=false&employer_id=1136961"
   }
 }
