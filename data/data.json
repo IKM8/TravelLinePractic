@@ -614,5 +614,35 @@
         "text": "— Миша и его собака пишут код из Новосибирска"
       }
     ]
+  },
+  "work": {
+    "title": "Работай как удобно",
+    "slogan": "Наши офисы в Йошкар-Оле, Казани и Санкт-Петербурге,\nа удаленные сотрудники более чем в 30ти городах",
+    "items": [
+      {
+        "type": "image",
+        "src": "b2ckfpv63kt740x426fxyryw7hsipu06.jpg"
+      },
+      {
+        "type": "image",
+        "src": "882dh2yvq6k5i3epabqigrms68pyrd5n.jpg"
+      },
+      {
+        "type": "image",
+        "src": "i21490yl4hrqwaepo6wasfgthyx23eya.jpg"
+      },
+      {
+        "type": "image",
+        "src": "jqecmmx6ar3bz3g5ovrhp0wws532ztqf.jpg"
+      },
+      {
+        "type": "image",
+        "src": "1xd2do64ycohcgzt95sb2tlu3vruhm2s.jpg"
+      },
+      {
+        "type": "text",
+        "text": "Если твоя команда в другом городе, мы поддерживаем и оплачиваем поездки, чтобы вы могли встретиться и пообщаться лично"
+      }
+    ]
   }
 }

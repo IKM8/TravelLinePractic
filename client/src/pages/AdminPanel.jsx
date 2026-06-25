@@ -224,6 +224,63 @@ function AdminPanel() {
           }} style={s.btnAdd}>+ Добавить направление</button>
         </Section>
 
+        {/* -------------------- WORK -------------------- */}
+        <Section title="Работай как удобно">
+          <Label>Заголовок</Label>
+          <input value={data.work.title} placeholder="Заголовок"
+            onChange={e => update(['work', 'title'], e.target.value)}
+            style={s.input} />
+          <Label>Слоган</Label>
+          <textarea value={data.work.slogan} placeholder="Слоган" rows={3}
+            onChange={e => update(['work', 'slogan'], e.target.value)}
+            style={s.input} />
+          <Label>Элементы</Label>
+          {data.work.items.map((item, i) => (
+            <div key={i} style={s.card}>
+              <div style={s.cardFields}>
+                <select value={item.type}
+                  onChange={e => {
+                    const arr = [...data.work.items];
+                    arr[i] = { ...arr[i], type: e.target.value };
+                    update(['work', 'items'], arr);
+                  }}
+                  style={s.input}>
+                  <option value="image">Изображение</option>
+                  <option value="text">Текст</option>
+                </select>
+                {item.type === 'image' && (
+                  <input value={item.src || ''} placeholder="Имя файла (gallery/)"
+                    onChange={e => {
+                      const arr = [...data.work.items];
+                      arr[i] = { ...arr[i], src: e.target.value };
+                      update(['work', 'items'], arr);
+                    }}
+                    style={s.input} />
+                )}
+                {item.type === 'text' && (
+                  <textarea value={item.text || ''} placeholder="Текст" rows={3}
+                    onChange={e => {
+                      const arr = [...data.work.items];
+                      arr[i] = { ...arr[i], text: e.target.value };
+                      update(['work', 'items'], arr);
+                    }}
+                    style={s.input} />
+                )}
+              </div>
+              <div style={s.cardActions}>
+                <button onClick={() => {
+                  const arr = [...data.work.items];
+                  arr.splice(i, 1);
+                  update(['work', 'items'], arr);
+                }} style={s.btnDanger}>Удалить</button>
+              </div>
+            </div>
+          ))}
+          <button onClick={() => {
+            update(['work', 'items'], [...data.work.items, { type: 'image', src: '' }]);
+          }} style={s.btnAdd}>+ Добавить элемент</button>
+        </Section>
+
         {/* -------------------- VACANCIES -------------------- */}
         <Section title="Вакансии">
           <Label>Вакансии</Label>

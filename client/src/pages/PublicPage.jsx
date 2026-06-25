@@ -7,6 +7,7 @@ import Platform from '../components/Platform';
 import Directions from '../components/Directions';
 import Vacancies from '../components/Vacancies';
 import Gallery from '../components/Gallery';
+import Work from '../components/Work';
 
 function PublicPage() {
   const [data, setData] = useState(null);
@@ -32,6 +33,7 @@ function PublicPage() {
       <Directions data={data.directions} />
       <Vacancies data={data.vacancies} />
       <Gallery data={data.gallery}/>
+      <Work data={data.work} />
     </div>
   );
 }
