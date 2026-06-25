@@ -105,6 +105,15 @@ function Team({ data }) {
                 <div className="tl-team__card-overlay">
                   <span className="tl-team__card-name">{member.name}</span>
                   <span className="tl-team__card-position">{member.position}</span>
+                  {(member.links?.length > 0) && (
+                    <div className="tl-team__card-socials">
+                      {member.links.map((link, li) => (
+                        <a key={li} href={link.url} target="_blank" rel="noopener noreferrer">
+                          {linkIcon(link.url)}
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
