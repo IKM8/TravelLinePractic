@@ -102,6 +102,39 @@ a{text-decoration:none;color:inherit}
   .tl-advantages__label{font-size:18px}
 }
 
+.tl-section--full-height{min-height:100vh}
+.tl-section--rounded-right{border-radius:0 50px 0 0}@media (max-width:1600px){.tl-section--rounded-right{border-radius:0 40px 0 0}}@media (max-width:991px){.tl-section--rounded-right{border-radius:0 30px 0 0}}@media (max-width:767px){.tl-section--rounded-right{border-radius:0 20px 0 0}}
+.tl-section--over{z-index:1;margin-top:-90px}@media (max-width:1600px){.tl-section--over{margin-top:-40px}}@media (max-width:1325px){.tl-section--over{margin-top:-30px}}
+
+.tl-directions{padding-top:155px;padding-bottom:200px}
+.tl-directions__list:hover .tl-accordion:not(:hover){opacity:.25;transition:opacity .3s}
+.tl-accordion{transition:opacity .3s}
+@media (max-width:1600px){.tl-directions{padding-top:95px;padding-bottom:190px}}
+@media (max-width:991px){.tl-directions{padding-bottom:183px}}
+@media (max-width:767px){.tl-directions{padding-top:45px;padding-bottom:80px}}
+.tl-directions__inner{max-width:1920px;margin:0 auto;background:#fff;border-radius:0 50px 0 0}
+.tl-directions__title{font-family:"Involve",Arial,sans-serif;font-size:56px;font-weight:600;color:#323e59;padding:0 150px 87px 230px}
+@media (max-width:1600px){.tl-directions__title{font-size:36px;padding:0 150px 64px 80px}}@media (max-width:991px){.tl-directions__title{font-size:32px;padding:0 42px 71px 80px}}@media (max-width:767px){.tl-directions__title{font-size:22px;padding:0 24px 45px 80px}}
+
+.tl-directions__list{margin:0 80px}
+.tl-accordion{padding:32px 150px;border-bottom:1px solid rgba(80,123,206,.4)}@media (max-width:1600px){.tl-accordion{padding:24px 0}}@media (max-width:991px){.tl-accordion{padding:16px 0}}
+.tl-accordion__title{display:flex;gap:32px;cursor:pointer;align-items:center}@media (max-width:1600px){.tl-accordion__title{gap:24px}}@media (max-width:991px){.tl-accordion__title{display:grid;gap:20px;grid-template-columns:1fr auto}}
+.tl-accordion__title-text{font-size:40px;font-weight:500;line-height:60px;color:#507bce;white-space:nowrap;transition:opacity .2s}@media (max-width:1600px){.tl-accordion__title-text{font-size:28px;line-height:43px}}@media (max-width:991px){.tl-accordion__title-text{font-size:26px;line-height:1}}@media (max-width:767px){.tl-accordion__title-text{font-size:18px}}
+.tl-accordion__title-text.opacity{opacity:.25}
+.tl-accordion__toggle{margin-left:auto;cursor:pointer}@media (max-width:1600px){.tl-accordion__toggle{margin-right:40px}}@media (max-width:991px){.tl-accordion__toggle{grid-area:1/2/2/3;margin-right:22px}}@media (max-width:767px){.tl-accordion__toggle{margin-right:14px}}
+.tl-accordion__toggle svg{transform:rotate(0);transition:transform .2s}@media (max-width:767px){.tl-accordion__toggle svg{width:23px}}
+.tl-accordion--open .tl-accordion__toggle svg{transform:rotate(180deg)}
+.tl-accordion__tech-list{display:flex;flex-wrap:wrap;gap:6px}@media (max-width:991px){.tl-accordion__tech-list{grid-area:2/1/3/3}}
+.tl-accordion__tech-item{display:flex;align-items:center;gap:8px;padding:19px 24px;font-family:"Manrope",Verdana,sans-serif;font-size:16px;font-weight:600;line-height:normal;color:#a3afb9;border:1px solid #a3afb9;border-radius:20px}@media (max-width:1600px){.tl-accordion__tech-item{padding:12px 18px;font-size:15px;border-radius:10px}}@media (max-width:991px){.tl-accordion__tech-item{padding:11px 9px;font-size:14px}}@media (max-width:767px){.tl-accordion__tech-item{padding:9px 12px;font-size:13px}}
+.tl-accordion__tech-item img{display:block;width:auto;height:16px}
+.tl-accordion__body{display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows .6s,padding-top .6s;color:#507bce;font-family:"Manrope",Verdana,sans-serif;font-size:16px;font-weight:500;line-height:26px}
+.tl-accordion--open .tl-accordion__body{grid-template-rows:1fr;padding-top:40px}
+.tl-accordion__content{min-height:0}
+.tl-accordion__content p{margin-bottom:1.15em}
+.tl-accordion__content ul,.tl-accordion__content ol{margin-bottom:1.15em;padding-left:1.5em}
+.tl-accordion__content ul{list-style:unset}
+.tl-accordion__content ol{list-style:auto}
+
 .tl-platform__brands{margin-top:60px;padding:0 80px;overflow:hidden}
 .tl-platform__brands .tl-brands__track{display:flex;width:max-content;animation:tl-marquee 50s linear infinite}
 .tl-platform__brands .tl-brands__item{display:flex;align-items:center;opacity:.6;margin-right:60px}
