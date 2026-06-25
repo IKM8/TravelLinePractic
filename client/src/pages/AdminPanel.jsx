@@ -155,6 +155,28 @@ function AdminPanel() {
                     update(['team'], arr);
                   }}
                   style={s.input} />
+                {(member.links || []).map((link, li) => (
+                  <div key={li} style={{ display:'flex', gap:6, alignItems:'center' }}>
+                    <input value={link.url} placeholder="Ссылка на соцсеть"
+                      onChange={e => {
+                        const arr = [...data.team];
+                        arr[i].links = [...(arr[i].links || [])];
+                        arr[i].links[li] = { ...arr[i].links[li], url: e.target.value };
+                        update(['team'], arr);
+                      }}
+                      style={{ ...s.input, flex:1 }} />
+                    <button onClick={() => {
+                      const arr = [...data.team];
+                      arr[i].links = (arr[i].links || []).filter((_,k) => k !== li);
+                      update(['team'], arr);
+                    }} style={s.btnDangerSmall}>×</button>
+                  </div>
+                ))}
+                <button onClick={() => {
+                  const arr = [...data.team];
+                  arr[i] = { ...arr[i], links: [...(arr[i].links || []), { url: '' }] };
+                  update(['team'], arr);
+                }} style={{ ...s.btnAdd, fontSize:12, padding:'4px 10px' }}>+ Ссылка</button>
               </div>
               <div style={s.cardActions}>
                 <button onClick={() => {
@@ -335,13 +357,22 @@ function AdminPanel() {
                   <option value="text">Текст</option>
                 </select>
                 {item.type === 'image' && (
-                  <input value={item.src || ''} placeholder="Имя файла (gallery/)"
-                    onChange={e => {
-                      const arr = [...data.work.items];
-                      arr[i] = { ...arr[i], src: e.target.value };
-                      update(['work', 'items'], arr);
-                    }}
-                    style={s.input} />
+                  <>
+                    <input value={item.city || ''} placeholder="Город"
+                      onChange={e => {
+                        const arr = [...data.work.items];
+                        arr[i] = { ...arr[i], city: e.target.value };
+                        update(['work', 'items'], arr);
+                      }}
+                      style={s.input} />
+                    <input value={item.src || ''} placeholder="Имя файла (gallery/)"
+                      onChange={e => {
+                        const arr = [...data.work.items];
+                        arr[i] = { ...arr[i], src: e.target.value };
+                        update(['work', 'items'], arr);
+                      }}
+                      style={s.input} />
+                  </>
                 )}
                 {item.type === 'text' && (
                   <textarea value={item.text || ''} placeholder="Текст" rows={3}
@@ -363,7 +394,7 @@ function AdminPanel() {
             </div>
           ))}
           <button onClick={() => {
-            update(['work', 'items'], [...data.work.items, { type: 'image', src: '' }]);
+            update(['work', 'items'], [...data.work.items, { type: 'image', src: '', city: '' }]);
           }} style={s.btnAdd}>+ Добавить элемент</button>
         </Section>
 
@@ -768,6 +799,10 @@ const s = {
   btnDanger: {
     background: '#fff', color: '#c62828', border: '1.5px solid #ffd0d0',
     padding: '6px 14px', borderRadius: 8, fontSize: 13, cursor: 'pointer', fontWeight: 500,
+  },
+  btnDangerSmall: {
+    background: '#fff', color: '#c62828', border: '1.5px solid #ffd0d0',
+    padding: '2px 8px', borderRadius: 6, fontSize: 14, cursor: 'pointer', fontWeight: 500, lineHeight: 1,
   },
   subCard: {
     border: '1px solid #e0e3ed', borderRadius: 10, padding: 16, marginBottom: 10,

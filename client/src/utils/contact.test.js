@@ -21,4 +21,8 @@ describe('contact', () => {
   it('description contains newline', () => {
     expect(data.contact.description).toContain('\n');
   });
+
+  it('has button_text', () => {
+    expect(data.contact.button_text).toBeTruthy();
+  });
 });

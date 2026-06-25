@@ -57,17 +57,20 @@ function Work({ data }) {
           </div>
 
           {data.items.map((item, i) => {
-            if (item.type === 'image') {
+              if (item.type === 'image') {
               const imgItems = data.items.filter(it => it.type === 'image');
               const imgIdx = imgItems.indexOf(item);
               const cls = imgIdx % 2 === 0 ? 'tl-work__item--wide' : 'tl-work__item--narrow';
               return (
                 <div key={i} className={`tl-work__item ${cls}`}>
-                  <img
-                    src={`/images/gallery/${item.src}`}
-                    alt=""
-                    width="800" height="525"
-                  />
+                  <div className="tl-work__item-img-wrap">
+                    <img
+                      src={`/images/gallery/${item.src}`}
+                      alt=""
+                      width="800" height="525"
+                    />
+                    {item.city && <span className="tl-work__item-city">{item.city}</span>}
+                  </div>
                 </div>
               );
             }
