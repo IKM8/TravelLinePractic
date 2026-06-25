@@ -9,6 +9,8 @@ import Vacancies from '../components/Vacancies';
 import Gallery from '../components/Gallery';
 import Bonus from '../components/Bonus';
 import Work from '../components/Work';
+import Contact from '../components/Contact';
+import Footer from '../components/Footer';
 
 function PublicPage() {
   const [data, setData] = useState(null);
@@ -36,6 +38,8 @@ function PublicPage() {
       <Gallery data={data.gallery}/>
       <Work data={data.work} />
       <Bonus data={data.bonus} />
+      <Contact data={data.contact} />
+      <Footer />
     </div>
   );
 }
