@@ -276,6 +276,40 @@ function AdminPanel() {
             style={s.input} />
         </Section>
 
+        {/* -------------------- GALLERY -------------------- */}
+        <Section title="Галерея">
+          {data.gallery.items.map((item, i) => (
+            <div key={i} style={s.card}>
+              <div style={s.cardFields}>
+                <input value={item.src} placeholder="Имя файла (images/gallery/)"
+                  onChange={e => {
+                    const arr = [...data.gallery.items];
+                    arr[i] = { ...arr[i], src: e.target.value };
+                    update(['gallery', 'items'], arr);
+                  }}
+                  style={s.input} />
+                <input value={item.text} placeholder="Подпись к фото"
+                  onChange={e => {
+                    const arr = [...data.gallery.items];
+                    arr[i] = { ...arr[i], text: e.target.value };
+                    update(['gallery', 'items'], arr);
+                  }}
+                  style={s.input} />
+              </div>
+              <div style={s.cardActions}>
+                <button onClick={() => {
+                  const arr = [...data.gallery.items];
+                  arr.splice(i, 1);
+                  update(['gallery', 'items'], arr);
+                }} style={s.btnDanger}>Удалить</button>
+              </div>
+            </div>
+          ))}
+          <button onClick={() => {
+            update(['gallery', 'items'], [...data.gallery.items, { src: '', text: '' }]);
+          }} style={s.btnAdd}>+ Добавить фото</button>
+        </Section>
+
         {/* -------------------- SAVE -------------------- */}
         <div style={s.saveBar}>
           <button onClick={save} disabled={saving} style={{

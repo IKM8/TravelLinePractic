@@ -6,6 +6,7 @@ import Team from '../components/Team';
 import Platform from '../components/Platform';
 import Directions from '../components/Directions';
 import Vacancies from '../components/Vacancies';
+import Gallery from '../components/Gallery';
 
 function PublicPage() {
   const [data, setData] = useState(null);
@@ -30,6 +31,7 @@ function PublicPage() {
       <Platform data={data.platform} brands={data.brands} />
       <Directions data={data.directions} />
       <Vacancies data={data.vacancies} />
+      <Gallery data={data.gallery}/>
     </div>
   );
 }
