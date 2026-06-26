@@ -1,4 +1,36 @@
+import { useEffect } from 'react';
+
 function Vacancies({ data }) {
+  useEffect(() => {
+    let rafId;
+    let smoothP = 0;
+    const sections = [
+      { id: 'vacancies-title', start: 450, speed: 5 },
+      { id: 'vacancies-sub1', start: 550, speed: 4 },
+      { id: 'vacancies-sub2', start: 650, speed: 3 },
+    ];
+
+    const loop = () => {
+      const section = document.getElementById('vacancies');
+      const rect = section.getBoundingClientRect();
+      const wh = window.innerHeight;
+      const raw = Math.min(1, Math.max(0, (wh - rect.top) / (rect.height + wh)));
+      smoothP += (raw - smoothP) * 0.03;
+
+      sections.forEach(({ id, start, speed }) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const p = Math.min(1, smoothP * speed);
+        const eased = Math.pow(p, 1.8);
+        el.style.transform = `translateX(${start - eased * start}px)`;
+      });
+
+      rafId = requestAnimationFrame(loop);
+    };
+    rafId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
   if (!data || !data.items) return null;
 
   const subtitleParts = data.subtitle ? data.subtitle.split(' и ') : [];
@@ -6,7 +38,7 @@ function Vacancies({ data }) {
   return (
     <section className="tl-vacancies" id="vacancies">
       <div className="tl-vacancies__inner">
-        <h2 className="tl-vacancies__title">
+        <h2 className="tl-vacancies__title" id="vacancies-title">
           {data.title}
           <span className="tl-vacancies__title-icon">
             <img src="/tl-logo.svg" alt="TL" width="22" height="22" />
@@ -15,8 +47,8 @@ function Vacancies({ data }) {
         </h2>
         {subtitleParts.length > 0 && (
           <div className="tl-vacancies__subtitle-wrap">
-            <p className="tl-vacancies__subtitle">{subtitleParts[0]}</p>
-            {subtitleParts[1] && <p className="tl-vacancies__subtitle">и {subtitleParts[1]}</p>}
+            <p className="tl-vacancies__subtitle" id="vacancies-sub1">{subtitleParts[0]}</p>
+            {subtitleParts[1] && <p className="tl-vacancies__subtitle" id="vacancies-sub2">и {subtitleParts[1]}</p>}
           </div>
         )}
         {data.listTitle && (
