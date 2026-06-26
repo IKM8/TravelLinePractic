@@ -108,7 +108,7 @@ a{text-decoration:none;color:inherit}
 .tl-section--rounded-right{border-radius:0 50px 0 0}@media (max-width:1600px){.tl-section--rounded-right{border-radius:0 40px 0 0}}@media (max-width:991px){.tl-section--rounded-right{border-radius:0 30px 0 0}}@media (max-width:767px){.tl-section--rounded-right{border-radius:0 20px 0 0}}
 .tl-section--over{z-index:1;margin-top:-90px}@media (max-width:1600px){.tl-section--over{margin-top:-40px}}@media (max-width:1325px){.tl-section--over{margin-top:-30px}}
 
-.tl-directions{padding-top:155px;padding-bottom:200px}
+.tl-directions{background:#fff;padding-top:155px;padding-bottom:200px}
 .tl-directions__list:hover .tl-accordion:not(:hover){opacity:.25;transition:opacity .3s}
 .tl-accordion{transition:opacity .3s}
 @media (max-width:1600px){.tl-directions{padding-top:95px;padding-bottom:190px}}
@@ -143,7 +143,7 @@ a{text-decoration:none;color:inherit}
 @keyframes tl-marquee{0%{transform:translateX(0)}to{transform:translateX(-50%)}}
 .tl-platform__brands .tl-brands__item img{height:auto;width:auto}
 
-.tl-vacancies{padding:40px 0 160px}
+.tl-vacancies{background:#fff;padding:40px 0 160px}
 @media (max-width:1600px){.tl-vacancies{padding:30px 0 120px}}
 @media (max-width:991px){.tl-vacancies{padding:24px 0 80px}}
 @media (max-width:767px){.tl-vacancies{padding:16px 0 48px}}
