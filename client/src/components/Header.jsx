@@ -1,29 +1,28 @@
 import { useState, useEffect } from 'react';
 
 const SECTION_STATES = [
-  { id: 'advantages', state: 'dark' },
-  { id: 'team', state: 'light' },
-  { id: 'platform', state: 'hidden' },
-  { id: 'directions', state: 'dark' },
-  { id: 'vacancies', state: 'dark' },
-  { id: 'gallery', state: 'light' },
-  { id: 'work', state: 'dark' },
-  { id: 'bonus', state: 'dark' },
-  { id: 'contact-form', state: 'light' },
+  { id: 'advantages', state: 'dark', threshold: 120 },
+  { id: 'team', state: 'light', threshold: 120 },
+  { id: 'platform', state: 'hidden', threshold: 120 },
+  { id: 'directions', state: 'dark', threshold: 120 },
+  { id: 'vacancies', state: 'dark', threshold: 120 },
+  { id: 'gallery', state: 'light', threshold: 100 },
+  { id: 'work', state: 'dark', threshold: 300 },
+  { id: 'bonus', state: 'dark', threshold: 300 },
+  { id: 'contact-form', state: 'light', threshold: 300 },
 ];
 
 function Header() {
   const [headerState, setHeaderState] = useState('light');
 
   useEffect(() => {
-    const HEADER_H = 100;
     let rafId;
 
     const check = () => {
       let newState = 'light';
       for (const sec of SECTION_STATES) {
         const el = document.getElementById(sec.id);
-        if (el && el.getBoundingClientRect().top <= HEADER_H) {
+        if (el && el.getBoundingClientRect().top <= sec.threshold) {
           newState = sec.state;
         }
       }

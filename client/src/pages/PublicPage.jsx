@@ -14,14 +14,17 @@ import Footer from '../components/Footer';
 
 function PublicPage() {
   const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
   const heroRef = useRef(null);
+  const wrapperRef = useRef(null);
   const [mt, setMt] = useState(0);
+  const [heroVisible, setHeroVisible] = useState(true);
 
   useEffect(() => {
     fetch('/api/page-data')
-      .then(res => res.json())
+      .then(res => { if (!res.ok) throw new Error('Ошибка загрузки'); return res.json(); })
       .then(setData)
-      .catch(err => console.error('Ошибка:', err));
+      .catch(err => setError(err.message));
   }, []);
 
   useLayoutEffect(() => {
@@ -30,20 +33,59 @@ function PublicPage() {
     }
   }, [data]);
 
+  useEffect(() => {
+    setHeroVisible(true);
+    const onScroll = () => setHeroVisible(window.scrollY < mt);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [mt]);
+
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+    let rafId;
+    let transitionSet = false;
+    let current = null;
+
+    const check = () => {
+      const gallery = document.getElementById('gallery');
+      const work = document.getElementById('work');
+      const contact = document.getElementById('contact-form');
+      if (!gallery || !work || !contact) { rafId = requestAnimationFrame(check); return; }
+      const sy = window.scrollY;
+      const gt = gallery.getBoundingClientRect().top + sy - 100;
+      const wt = work.getBoundingClientRect().top + sy - 300;
+      const ct = contact.getBoundingClientRect().top + sy - 300;
+      const isDark = (sy >= gt && sy < wt) || sy >= ct;
+      const target = isDark ? '#12203b' : '#ffffff';
+      if (target !== current) {
+        current = target;
+        if (!transitionSet) { el.style.transition = 'background-color .4s'; transitionSet = true; }
+        el.style.backgroundColor = target;
+      }
+      rafId = requestAnimationFrame(check);
+    };
+
+    rafId = requestAnimationFrame(check);
+    return () => cancelAnimationFrame(rafId);
+  }, [data, mt]);
+
+  if (error) return <div className="tl-loading">Ошибка загрузки данных</div>;
+
   if (!data) {
     return <div className="tl-loading">Загрузка...</div>;
   }
 
-  const contentStyle = { marginTop: mt, position: 'relative', zIndex: 1, background: '#fff' };
+  const contentStyle = { marginTop: mt, position: 'relative', backgroundColor: '#ffffff' };
 
   return (
     <div>
       <Header />
-      <div className="tl-hero-fixed" ref={heroRef}>
+      <div className="tl-hero-fixed" ref={heroRef} style={{ visibility: heroVisible ? 'visible' : 'hidden' }}>
         <Hero data={data.hero} />
       </div>
       {mt > 0 && (
-        <div style={contentStyle}>
+        <div style={contentStyle} ref={wrapperRef}>
           <Advantages data={data.hero} />
           <Team data={data.team} />
           <Platform data={data.platform} brands={data.brands} />
