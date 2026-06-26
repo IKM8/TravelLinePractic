@@ -110,6 +110,7 @@ a{text-decoration:none;color:inherit}
 
 .tl-directions{background:#fff;padding-top:155px;padding-bottom:200px}
 .tl-directions__list:hover .tl-accordion:not(:hover){opacity:.25;transition:opacity .3s}
+.tl-directions__list:hover .tl-accordion--open{opacity:1}
 .tl-accordion{transition:opacity .3s}
 @media (max-width:1600px){.tl-directions{padding-top:95px;padding-bottom:190px}}
 @media (max-width:991px){.tl-directions{padding-bottom:183px}}

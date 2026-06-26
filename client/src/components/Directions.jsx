@@ -31,7 +31,7 @@ function Directions({ data }) {
               className={`tl-accordion ${openIdx === i ? 'tl-accordion--open' : ''}`}
             >
               <div className="tl-accordion__title" onClick={() => toggle(i)}>
-                <span className={`tl-accordion__title-text ${openIdx === i ? 'opacity' : ''}`}>
+                <span className="tl-accordion__title-text">
                   {item.title}
                 </span>
 
