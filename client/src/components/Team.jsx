@@ -72,7 +72,7 @@ function Team({ data }) {
       </div>
       <div className="tl-team__header-wrapper">
         <div className="tl-team__header">
-          <h2 className="tl-team__title">Любим и бережем свою команду</h2>
+          <h2 className="tl-team__title">Любим и бережем свою команду ТЕСТ ПРОВЕРКА</h2>
           <p className="tl-team__subtitle">300+ человек, которые вдохновляют своими достижениями</p>
         </div>
       </div>
