@@ -1,4 +1,3 @@
-import { useRef, useState, useCallback } from 'react';
 import icons from '../utils/icons.js';
 
 function renderIcon(iconId) {
@@ -32,16 +31,6 @@ function calcMinHeight(n) {
 }
 
 function Platform({ data, brands }) {
-  const chartRef = useRef(null);
-  const [dirs, setDirs] = useState({});
-
-  const handleIconEnter = useCallback((entry, e) => {
-    const key = entry.title || entry.icon;
-    const iconRect = e.currentTarget.getBoundingClientRect();
-    const chartRect = chartRef.current.getBoundingClientRect();
-    const spaceRight = chartRect.right - iconRect.right;
-    setDirs(prev => prev[key] ? prev : { ...prev, [key]: spaceRight >= 288 ? 'right' : 'left' });
-  }, []);
 
   if (!data || data.length === 0) return null;
 
@@ -53,7 +42,7 @@ function Platform({ data, brands }) {
         </div>
       </div>
 
-      <div className="tl-platform__chart" ref={chartRef}>
+      <div className="tl-platform__chart">
         {data.map((group, i) => {
             const fallback = [200, 300, 400, 480, 550];
             const base = heights[group.year] || fallback[Math.min(group.entries.length, 4)];
@@ -62,30 +51,24 @@ function Platform({ data, brands }) {
             return (
               <div key={i} className="tl-platform__col" style={{ height: h }}>
                 <div className="tl-platform__col-items">
-                  {group.entries.map((entry, j) => {
-                    const key = entry.title || entry.icon;
-                    return (
+                  {group.entries.map((entry, j) => (
                       <div key={j} className="tl-platform__card">
                         <div
                           className="tl-platform__card-icon"
-                          style={{ background: entry.iconColor || '#507bce' }}
-                          onMouseEnter={(e) => handleIconEnter(entry, e)}
-                        >
+                          style={{ background: entry.iconColor || '#507bce' }}>
                           {renderIcon(entry.icon)}
                         </div>
                         {(entry.description || entry['extra-description']) && (
-                          <div
-                            className={'tl-platform__card-expand' + (dirs[key] === 'left' ? ' tl-platform__card-expand--left' : '')}
-                            style={{ background: entry.iconColor || '#507bce' }}
-                          >
-                            {entry.description && <div className="tl-platform__card-expand-text">{entry.description}</div>}
-                            {entry['extra-description'] && <div className="tl-platform__card-expand-extra">{entry['extra-description']}</div>}
+                          <div className="tl-platform__card-body" style={{ background: entry.iconColor || '#507bce' }}>
+                            <div className="tl-platform__card-body-inner">
+                              {entry.description && <div className="tl-platform__card-expand-text">{entry.description}</div>}
+                              {entry['extra-description'] && <div className="tl-platform__card-expand-extra">{entry['extra-description']}</div>}
+                            </div>
                           </div>
                         )}
                         <div className="tl-platform__card-text" style={entry.title && entry.title.length < 25 ? {whiteSpace:'nowrap'} : undefined}>{entry.title}</div>
                       </div>
-                    );
-                  })}
+                  ))}
                 </div>
                 <div className="tl-platform__col-year">{group.year}</div>
               </div>
