@@ -34,35 +34,37 @@ a{text-decoration:none;color:inherit}
 .tl-advantages{background:#fff;border-radius:50px 0 0 0;margin-top:-90px;position:relative;z-index:1;padding:150px 0 236px}
 @media (max-width:1600px){.tl-advantages{margin-top:-40px;padding-top:140px;padding-bottom:163px}}
 @media (max-width:1325px){.tl-advantages{margin-top:-30px}}
-.tl-advantages__cols{display:flex;max-width:1200px;margin:0 auto;padding:0 80px;gap:60px}
-.tl-advantages__left{flex:0 0 480px;position:relative}
-.tl-advantages__value{position:fixed;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;font-size:80px;font-weight:500;color:#507bce;font-family:"Manrope",Verdana,sans-serif;text-align:right;white-space:nowrap;transition:opacity .6s;margin:0}
-.tl-advantages__value--logo{position:fixed;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;transition:opacity .6s;display:flex;align-items:center}
+.tl-advantages__cols{display:flex;max-width:1280px;margin:0 auto;padding:0 0 0 80px;gap:100px}
+.tl-advantages__left{flex:0 0 460px;position:relative}
+.tl-advantages__value{position:fixed;top:50%;right:60vw;overflow:visible;transform:translateY(-50%);z-index:1;pointer-events:none;font-size:72px;font-weight:500;color:#507bce;font-family:"Involve",Arial,sans-serif;white-space:nowrap;margin:0;text-align:right;transition:opacity .5s}
+.tl-advantages__value--in{animation:tl-value-in .5s ease forwards}
+.tl-advantages__value--out{animation:tl-value-out .5s ease forwards;z-index:2}
+@keyframes tl-value-in{from{opacity:0}to{opacity:1}}
+@keyframes tl-value-out{from{opacity:1}to{opacity:0}}
+@media (max-width:1600px){.tl-advantages__value{font-size:48px}}
+.tl-advantages__value--logo{position:fixed;top:50%;right:60vw;overflow:visible;transform:translateY(-50%);z-index:1;pointer-events:none;display:flex;align-items:center;justify-content:flex-end}
 .tl-advantages__right{flex:1}
-.tl-advantages__item{min-height:80px;padding:40px 0;display:flex;align-items:center;color:#323e59;font-family:"Manrope",Verdana,sans-serif;font-size:24px;font-weight:400;transition:opacity .5s;white-space:pre-line}
-.tl-advantages__item.active{font-size:38px;font-weight:600;color:#507bce}
-
+.tl-advantages__item{min-height:200px;padding:30px 0;display:flex;align-items:center;color:#7b88a1;font-family:"Manrope",Verdana,sans-serif;font-size:47px;font-weight:600;white-space:pre-line;line-height:61px;transition:color .3s,opacity .3s}
+@media (max-width:1600px){
+  .tl-advantages__item{font-size:38px;line-height:48px;min-height:180px;padding:25px 0}
+}
 @media (max-width:1200px){
-  .tl-advantages__cols{padding:0 40px;gap:40px}
-  .tl-advantages__left{flex-basis:320px}
-  .tl-advantages__value{font-size:56px}
-  .tl-advantages__item.active{font-size:30px}
-  .tl-advantages__item{font-size:20px}
+  .tl-advantages__cols{padding:0 40px 0 60px;gap:60px}
+  .tl-advantages__left{flex-basis:340px}
+  .tl-advantages__item{font-size:32px;line-height:42px}
 }
 @media (max-width:991px){
   .tl-advantages{padding:80px 0}
-  .tl-advantages__cols{flex-direction:column;gap:8px}
+  .tl-advantages__cols{flex-direction:column;gap:18px}
   .tl-advantages__left{flex-basis:auto}
-  .tl-advantages__value,.tl-advantages__value--logo{position:static;transform:none;font-size:40px;text-align:left}
-  .tl-advantages__item.active{font-size:24px}
-  .tl-advantages__item{padding:20px 0;font-size:18px}
+  .tl-advantages__value,.tl-advantages__value--logo{position:static;left:auto;transform:none;font-size:40px;text-align:left;animation:none}
+  .tl-advantages__item{color:#323e59;font-size:26px;line-height:38px;min-height:auto;padding:0}
 }
 @media (max-width:767px){
   .tl-advantages{padding:60px 0}
-  .tl-advantages__cols{padding:0 24px;gap:8px}
+  .tl-advantages__cols{padding:0 24px;gap:11px}
   .tl-advantages__value{font-size:30px}
-  .tl-advantages__item.active{font-size:20px}
-  .tl-advantages__item{padding:16px 0;font-size:16px}
+  .tl-advantages__item{font-size:20px;line-height:normal;min-height:56px}
 }
 
 .tl-team{padding:200px 0 236px;background:#507bce;position:relative;border-radius:0 50px 0 0;margin-top:-90px;z-index:1}
