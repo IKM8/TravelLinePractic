@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import PublicPage from './pages/PublicPage';
 import AdminPanel from './pages/AdminPanel';
 import Login from './pages/Login';
+import NotFound from './pages/NotFound';
 
 function ProtectedRoute({ children }) {
   const { token, loading } = useAuth();
@@ -16,6 +17,7 @@ function AppRoutes() {
       <Route path="/" element={<PublicPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
