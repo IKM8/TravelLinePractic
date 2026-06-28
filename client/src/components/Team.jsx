@@ -1,3 +1,5 @@
+import { useRef, useEffect } from 'react';
+
 const SOCIAL_ICONS = {
   telegram: (
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -18,6 +20,74 @@ function linkIcon(url) {
 }
 
 function Team({ data }) {
+  const x = useRef(0);
+  const speed = useRef(-0.3);
+  const dragging = useRef(false);
+  const raf = useRef(null);
+  const track = useRef(null);
+
+  useEffect(() => {
+    const el = track.current;
+    if (!el || !data?.length) return;
+    const half = el.scrollWidth / 2 || 1;
+
+    function tick() {
+      if (!dragging.current) {
+        x.current += speed.current;
+        if (x.current <= -half) x.current += half;
+        if (x.current >= 0) x.current -= half;
+        el.style.transform = `translateX(${x.current}px)`;
+      }
+      raf.current = requestAnimationFrame(tick);
+    }
+    raf.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf.current);
+  }, [data]);
+
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+
+    let drag = null;
+
+    function down(e) {
+      if (e.target.closest('a')) return;
+      e.preventDefault();
+      dragging.current = true;
+      el.setPointerCapture(e.pointerId);
+      drag = { baseX: x.current, startX: e.clientX };
+    }
+
+    function move(e) {
+      if (!drag) return;
+      x.current = drag.baseX + (e.clientX - drag.startX);
+      const half = el.scrollWidth / 2 || 1;
+      if (x.current <= -half) x.current += half;
+      if (x.current >= 0) x.current -= half;
+      el.style.transform = `translateX(${x.current}px)`;
+    }
+
+    function up() {
+      if (!drag) return;
+      const finalX = x.current;
+      const dir = finalX - drag.baseX;
+      speed.current = dir > 2 ? 0.3 : dir < -2 ? -0.3 : -0.3;
+      drag = null;
+      dragging.current = false;
+    }
+
+    el.addEventListener('pointerdown', down);
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerup', up);
+    el.addEventListener('pointercancel', up);
+    return () => {
+      el.removeEventListener('pointerdown', down);
+      el.removeEventListener('pointermove', move);
+      el.removeEventListener('pointerup', up);
+      el.removeEventListener('pointercancel', up);
+    };
+  }, []);
+
   return (
     <section className="tl-team" id="team">
       <div className="tl-team__decor">
@@ -76,8 +146,8 @@ function Team({ data }) {
           <p className="tl-team__subtitle">300+ человек, которые вдохновляют своими достижениями</p>
         </div>
       </div>
-      <div className="tl-team__slider-wrapper">
-        <div className="tl-team__track">
+      <div className="tl-team__slider-wrapper" style={{ touchAction: 'pan-y', userSelect: 'none', WebkitUserSelect: 'none' }}>
+        <div className="tl-team__track" ref={track} style={{ cursor: 'grab', touchAction: 'none' }}>
           {data.map((member) => (
             <div key={member.id} className="tl-team__card">
               <div className="tl-team__card-image">

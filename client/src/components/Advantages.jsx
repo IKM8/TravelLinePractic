@@ -21,7 +21,7 @@ function Advantages({ data }) {
       const section = sectionRef.current;
       if (!section) { rafId = requestAnimationFrame(check); return; }
       const rect = section.getBoundingClientRect();
-      const isInView = rect.top < window.innerHeight * 0.4 && rect.bottom > 0;
+      const isInView = rect.top < window.innerHeight * 0.4 && rect.bottom > window.innerHeight * 0.85;
 
       if (isInView !== prevInView.current) {
         prevInView.current = isInView;
@@ -33,11 +33,6 @@ function Advantages({ data }) {
 
       itemsRef.current.forEach((el, i) => {
         if (!el) return;
-        if (!isInView) {
-          el.style.opacity = '0';
-          el.style.color = '';
-          return;
-        }
         const r = el.getBoundingClientRect();
         const c = r.top + r.height / 2;
         const d = Math.abs(c - VPC);

@@ -77,12 +77,11 @@ a{text-decoration:none;color:inherit}
 .tl-team__title{font-family:"Involve",Arial,sans-serif;font-size:56px;font-weight:600;color:#fff;letter-spacing:-.96px;line-height:1.1}@media (max-width:1600px){.tl-team__title{font-size:42px}}@media (max-width:767px){.tl-team__title{font-size:32px}}
 .tl-team__subtitle{font-family:"Manrope",Verdana,sans-serif;font-size:26px;font-weight:500;color:rgba(255,255,255,.6);margin-top:16px}@media (max-width:1600px){.tl-team__subtitle{font-size:20px}}@media (max-width:767px){.tl-team__subtitle{font-size:14px}}
 .tl-team__slider-wrapper{padding:0 80px;overflow:hidden}
-.tl-team__slider-wrapper .tl-team__track{display:flex;width:max-content;animation:tl-team-marquee 80s linear infinite;gap:20px}
-.tl-team__card{flex-shrink:0}
+.tl-team__slider-wrapper .tl-team__track{display:flex;width:max-content;gap:20px}.tl-team__card{flex-shrink:0}
 .tl-team__card-image{position:relative;width:336px;height:477px;border-radius:20px;overflow:hidden}
 .tl-team__card-image img{width:100%;height:100%;object-fit:cover;display:block}
 .tl-team__card-overlay{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.7));color:#fff}
-@keyframes tl-team-marquee{0%{transform:translateX(0)}to{transform:translateX(-50%)}}
+
 .tl-team__card-name{display:block;font-family:"Involve",Arial,sans-serif;font-size:20px;font-weight:500;color:#fff}
 .tl-team__card-position{display:block;font-family:"Manrope",Verdana,sans-serif;font-size:14px;font-weight:400;color:rgba(255,255,255,.8);margin-top:4px}.tl-team__card-socials{display:flex;gap:8px;margin-top:10px}.tl-team__card-socials a{display:flex;transition:opacity .3s}.tl-team__card-socials a:hover{opacity:.7}
 
