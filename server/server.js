@@ -4,6 +4,7 @@ const { Pool } = require('pg');
 const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -26,30 +27,43 @@ const pool = new Pool({
 
 const DATA_FILE = path.join(__dirname, '../data/data.json');
 
-async function initDB() {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS sections (
-      key TEXT PRIMARY KEY,
-      data JSONB NOT NULL
-    )
-  `);
+function readDataFromFile() {
+  const raw = fs.readFileSync(DATA_FILE, 'utf8');
+  return JSON.parse(raw);
+}
 
-  const { rowCount } = await pool.query('SELECT 1 FROM sections LIMIT 1');
-  if (rowCount === 0) {
-    console.log('Importing data from data.json...');
-    const raw = fs.readFileSync(DATA_FILE, 'utf8');
-    const data = JSON.parse(raw);
-    for (const [key, value] of Object.entries(data)) {
-      await pool.query(
-        'INSERT INTO sections (key, data) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET data = $2',
-        [key, JSON.stringify(value)]
-      );
+async function initDB() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS sections (
+        key TEXT PRIMARY KEY,
+        data JSONB NOT NULL
+      )
+    `);
+
+    const { rowCount } = await pool.query('SELECT 1 FROM sections LIMIT 1');
+    if (rowCount === 0) {
+      console.log('Importing data from data.json...');
+      const data = readDataFromFile();
+      for (const [key, value] of Object.entries(data)) {
+        await pool.query(
+          'INSERT INTO sections (key, data) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET data = $2',
+          [key, JSON.stringify(value)]
+        );
+      }
+      console.log('Data imported successfully');
     }
-    console.log('Data imported successfully');
+  } catch (err) {
+    console.warn('PostgreSQL недоступен, данные из файла:', err.message);
   }
 }
 
 app.get('/api/page-data', async (req, res) => {
+  if (process.env.DEV_MODE) {
+    try {
+      return res.json(readDataFromFile());
+    } catch { /* fall through */ }
+  }
   try {
     const result = await pool.query('SELECT key, data FROM sections');
     const data = {};
@@ -57,8 +71,12 @@ app.get('/api/page-data', async (req, res) => {
       data[row.key] = row.data;
     }
     res.json(data);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  } catch {
+    try {
+      res.json(readDataFromFile());
+    } catch {
+      res.status(500).json({ error: 'Ошибка загрузки данных' });
+    }
   }
 });
 
@@ -103,23 +121,21 @@ app.post('/api/page-data', authMiddleware, async (req, res) => {
   }
 });
 
-const staticDir = path.join(__dirname, '../client/dist');
-if (fs.existsSync(staticDir)) {
-  app.use(express.static(staticDir));
-  app.use((req, res, next) => {
-    if (!req.path.startsWith('/api')) {
-      res.sendFile(path.join(staticDir, 'index.html'));
-    } else {
-      next();
-    }
-  });
+if (!process.env.DEV_MODE) {
+  const staticDir = path.join(__dirname, '../client/dist');
+  if (fs.existsSync(staticDir)) {
+    app.use(express.static(staticDir));
+    app.use((req, res, next) => {
+      if (!req.path.startsWith('/api')) {
+        res.sendFile(path.join(staticDir, 'index.html'));
+      } else {
+        next();
+      }
+    });
+  }
 }
 
-initDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Сервер на http://localhost:${PORT}`);
-  });
-}).catch(err => {
-  console.error('Failed to initialize database:', err);
-  process.exit(1);
+initDB();
+app.listen(PORT, () => {
+  console.log(`Сервер на http://localhost:${PORT}`);
 });

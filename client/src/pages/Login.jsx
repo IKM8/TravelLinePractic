@@ -27,7 +27,8 @@ export default function Login() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-      const data = await res.json();
+      let data;
+      try { data = await res.json(); } catch { throw new Error('Сервер недоступен. Запусти Express или Docker.'); }
       if (!res.ok) throw new Error(data.error || 'Ошибка входа');
       login(data.token);
       navigate('/admin');

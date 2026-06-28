@@ -14,7 +14,6 @@ import Footer from '../components/Footer';
 
 function PublicPage() {
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
   const heroRef = useRef(null);
   const wrapperRef = useRef(null);
   const [mt, setMt] = useState(0);
@@ -22,9 +21,9 @@ function PublicPage() {
 
   useEffect(() => {
     fetch('/api/page-data')
-      .then(res => { if (!res.ok) throw new Error('Ошибка загрузки'); return res.json(); })
+      .then(res => { if (!res.ok) throw new Error(); return res.json(); })
       .then(setData)
-      .catch(err => setError(err.message));
+      .catch(() => setData({}));
   }, []);
 
   useLayoutEffect(() => {
@@ -69,8 +68,6 @@ function PublicPage() {
     rafId = requestAnimationFrame(check);
     return () => cancelAnimationFrame(rafId);
   }, [data, mt]);
-
-  if (error) return <div className="tl-loading">Ошибка загрузки данных</div>;
 
   if (!data) {
     return <div className="tl-loading">Загрузка...</div>;
