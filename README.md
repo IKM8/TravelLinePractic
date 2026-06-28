@@ -7,6 +7,7 @@
 ```bash
 git clone https://github.com/IKM8/TravelLinePractic.git
 cd TravelLinePractic
+cp .env.example .env
 docker-compose up --build
 ```
 
@@ -21,8 +22,10 @@ docker-compose up --build
 
 | Команда | Описание |
 |---|---|
+| `cp .env.example .env` | Создать файл с настройками |
 | `docker-compose up --build` | Собрать и запустить |
 | `docker-compose down` | Остановить |
+
 ## API
 
 - `GET /api/page-data` — получить все секции
@@ -30,4 +33,7 @@ docker-compose up --build
 
 ## Админка
 
-Открыть http://localhost:5000/admin — редактирование контента сайта
+Открыть http://localhost:5000/admin — редактирование контента сайта.
+
+**Логин и пароль для входа** задаются в файле `.env` (переменные `ADMIN_EMAIL` и `ADMIN_PASSWORD`).  
+После копирования из `.env.example` используются значения по умолчанию — их можно поменять перед запуском.
