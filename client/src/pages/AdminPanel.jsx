@@ -86,33 +86,35 @@ function AdminPanel() {
 
         {/* -------------------- ADVANTAGES (статистика hero) -------------------- */}
         <Section title="О TravelLine (статистика)">
-          {data.hero.stats.map((stat, i) => (
-            <div key={i} style={s.card}>
-              <div style={s.cardFields}>
-                <input value={stat.value} placeholder="Значение"
-                  onChange={e => {
+          <DraggableList items={data.hero.stats} onReorder={arr => update(['hero', 'stats'], arr)}>
+            {(stat, i) => (
+              <div style={s.card}>
+                <div style={s.cardFields}>
+                  <input value={stat.value} placeholder="Значение"
+                    onChange={e => {
+                      const arr = [...data.hero.stats];
+                      arr[i] = { ...arr[i], value: e.target.value };
+                      update(['hero', 'stats'], arr);
+                    }}
+                    style={s.input} />
+                  <input value={stat.label} placeholder="Описание"
+                    onChange={e => {
+                      const arr = [...data.hero.stats];
+                      arr[i] = { ...arr[i], label: e.target.value };
+                      update(['hero', 'stats'], arr);
+                    }}
+                    style={s.input} />
+                </div>
+                <div style={s.cardActions}>
+                  <button onClick={() => {
                     const arr = [...data.hero.stats];
-                    arr[i] = { ...arr[i], value: e.target.value };
+                    arr.splice(i, 1);
                     update(['hero', 'stats'], arr);
-                  }}
-                  style={s.input} />
-                <input value={stat.label} placeholder="Описание"
-                  onChange={e => {
-                    const arr = [...data.hero.stats];
-                    arr[i] = { ...arr[i], label: e.target.value };
-                    update(['hero', 'stats'], arr);
-                  }}
-                  style={s.input} />
+                  }} style={s.btnDanger}>Удалить</button>
+                </div>
               </div>
-              <div style={s.cardActions}>
-                <button onClick={() => {
-                  const arr = [...data.hero.stats];
-                  arr.splice(i, 1);
-                  update(['hero', 'stats'], arr);
-                }} style={s.btnDanger}>Удалить</button>
-              </div>
-            </div>
-          ))}
+            )}
+          </DraggableList>
           <button onClick={() => {
             update(['hero', 'stats'], [...data.hero.stats, { value: '', label: '' }]);
           }} style={s.btnAdd}>+ Добавить</button>
@@ -120,62 +122,64 @@ function AdminPanel() {
 
         {/* -------------------- TEAM -------------------- */}
         <Section title="Команда">
-          {data.team.map((member, i) => (
-            <div key={member.id} style={s.card}>
-              <div style={s.cardFields}>
-                <input value={member.name} placeholder="Имя"
-                  onChange={e => {
-                    const arr = [...data.team];
-                    arr[i] = { ...arr[i], name: e.target.value };
-                    update(['team'], arr);
-                  }}
-                  style={s.input} />
-                <input value={member.position} placeholder="Должность"
-                  onChange={e => {
-                    const arr = [...data.team];
-                    arr[i] = { ...arr[i], position: e.target.value };
-                    update(['team'], arr);
-                  }}
-                  style={s.input} />
-                <input value={member.photo_url} placeholder="Фото (путь)"
-                  onChange={e => {
-                    const arr = [...data.team];
-                    arr[i] = { ...arr[i], photo_url: e.target.value };
-                    update(['team'], arr);
-                  }}
-                  style={s.input} />
-                {(member.links || []).map((link, li) => (
-                  <div key={li} style={{ display:'flex', gap:6, alignItems:'center' }}>
-                    <input value={link.url} placeholder="Ссылка на соцсеть"
-                      onChange={e => {
-                        const arr = [...data.team];
-                        arr[i].links = [...(arr[i].links || [])];
-                        arr[i].links[li] = { ...arr[i].links[li], url: e.target.value };
-                        update(['team'], arr);
-                      }}
-                      style={{ ...s.input, flex:1 }} />
-                    <button onClick={() => {
+          <DraggableList items={data.team} onReorder={arr => update(['team'], arr)}>
+            {(member, i) => (
+              <div style={s.card}>
+                <div style={s.cardFields}>
+                  <input value={member.name} placeholder="Имя"
+                    onChange={e => {
                       const arr = [...data.team];
-                      arr[i].links = (arr[i].links || []).filter((_,k) => k !== li);
+                      arr[i] = { ...arr[i], name: e.target.value };
                       update(['team'], arr);
-                    }} style={s.btnDangerSmall}>×</button>
-                  </div>
-                ))}
-                <button onClick={() => {
-                  const arr = [...data.team];
-                  arr[i] = { ...arr[i], links: [...(arr[i].links || []), { url: '' }] };
-                  update(['team'], arr);
-                }} style={{ ...s.btnAdd, fontSize:12, padding:'4px 10px' }}>+ Ссылка</button>
+                    }}
+                    style={s.input} />
+                  <input value={member.position} placeholder="Должность"
+                    onChange={e => {
+                      const arr = [...data.team];
+                      arr[i] = { ...arr[i], position: e.target.value };
+                      update(['team'], arr);
+                    }}
+                    style={s.input} />
+                  <input value={member.photo_url} placeholder="Фото (путь)"
+                    onChange={e => {
+                      const arr = [...data.team];
+                      arr[i] = { ...arr[i], photo_url: e.target.value };
+                      update(['team'], arr);
+                    }}
+                    style={s.input} />
+                  {(member.links || []).map((link, li) => (
+                    <div key={li} style={{ display:'flex', gap:6, alignItems:'center' }}>
+                      <input value={link.url} placeholder="Ссылка на соцсеть"
+                        onChange={e => {
+                          const arr = [...data.team];
+                          arr[i].links = [...(arr[i].links || [])];
+                          arr[i].links[li] = { ...arr[i].links[li], url: e.target.value };
+                          update(['team'], arr);
+                        }}
+                        style={{ ...s.input, flex:1 }} />
+                      <button onClick={() => {
+                        const arr = [...data.team];
+                        arr[i].links = (arr[i].links || []).filter((_,k) => k !== li);
+                        update(['team'], arr);
+                      }} style={s.btnDangerSmall}>×</button>
+                    </div>
+                  ))}
+                  <button onClick={() => {
+                    const arr = [...data.team];
+                    arr[i] = { ...arr[i], links: [...(arr[i].links || []), { url: '' }] };
+                    update(['team'], arr);
+                  }} style={{ ...s.btnAdd, fontSize:12, padding:'4px 10px' }}>+ Ссылка</button>
+                </div>
+                <div style={s.cardActions}>
+                  <button onClick={() => {
+                    const arr = [...data.team];
+                    arr.splice(i, 1);
+                    update(['team'], arr);
+                  }} style={s.btnDanger}>Удалить</button>
+                </div>
               </div>
-              <div style={s.cardActions}>
-                <button onClick={() => {
-                  const arr = [...data.team];
-                  arr.splice(i, 1);
-                  update(['team'], arr);
-                }} style={s.btnDanger}>Удалить</button>
-              </div>
-            </div>
-          ))}
+            )}
+          </DraggableList>
           <button onClick={() => {
             update(['team'], [...data.team, { id: nextId++, name: '', position: '', photo_url: '', links: [] }]);
           }} style={s.btnAdd}>+ Добавить сотрудника</button>
@@ -183,9 +187,9 @@ function AdminPanel() {
 
         {/* -------------------- PLATFORM -------------------- */}
         <Section title={`Платформа`}>
-          {data.platform.map((group, gi) => (
-            <YearBlock key={gi} group={group} gi={gi} data={data} update={update} />
-          ))}
+          <DraggableList items={data.platform} onReorder={arr => update(['platform'], arr)}>
+            {(group, gi) => <YearBlock group={group} gi={gi} data={data} update={update} />}
+          </DraggableList>
           <button onClick={() => {
             update(['platform'], [...data.platform, { year: '', entries: [{ title: '', description: '', icon: 'founding', iconColor: '#507bce' }] }]);
           }} style={s.btnAdd}>+ Добавить год</button>
@@ -193,33 +197,35 @@ function AdminPanel() {
 
         {/* -------------------- BRANDS (внутри Platform) -------------------- */}
         <Section title="Бренды">
-          {data.brands.map((brand, i) => (
-            <div key={brand.id} style={s.card}>
-              <div style={s.cardFields}>
-                <input value={brand.name} placeholder="Название"
-                  onChange={e => {
+          <DraggableList items={data.brands} onReorder={arr => update(['brands'], arr)}>
+            {(brand, i) => (
+              <div style={s.card}>
+                <div style={s.cardFields}>
+                  <input value={brand.name} placeholder="Название"
+                    onChange={e => {
+                      const arr = [...data.brands];
+                      arr[i] = { ...arr[i], name: e.target.value };
+                      update(['brands'], arr);
+                    }}
+                    style={s.input} />
+                  <input value={brand.logo} placeholder="Путь к логотипу"
+                    onChange={e => {
+                      const arr = [...data.brands];
+                      arr[i] = { ...arr[i], logo: e.target.value };
+                      update(['brands'], arr);
+                    }}
+                    style={s.input} />
+                </div>
+                <div style={s.cardActions}>
+                  <button onClick={() => {
                     const arr = [...data.brands];
-                    arr[i] = { ...arr[i], name: e.target.value };
+                    arr.splice(i, 1);
                     update(['brands'], arr);
-                  }}
-                  style={s.input} />
-                <input value={brand.logo} placeholder="Путь к логотипу"
-                  onChange={e => {
-                    const arr = [...data.brands];
-                    arr[i] = { ...arr[i], logo: e.target.value };
-                    update(['brands'], arr);
-                  }}
-                  style={s.input} />
+                  }} style={s.btnDanger}>Удалить</button>
+                </div>
               </div>
-              <div style={s.cardActions}>
-                <button onClick={() => {
-                  const arr = [...data.brands];
-                  arr.splice(i, 1);
-                  update(['brands'], arr);
-                }} style={s.btnDanger}>Удалить</button>
-              </div>
-            </div>
-          ))}
+            )}
+          </DraggableList>
           <button onClick={() => {
             update(['brands'], [...data.brands, { id: nextId++, name: '', logo: '' }]);
           }} style={s.btnAdd}>+ Добавить бренд</button>
@@ -227,9 +233,9 @@ function AdminPanel() {
 
         {/* -------------------- DIRECTIONS -------------------- */}
         <Section title="Направления">
-          {data.directions.items.map((item, i) => (
-            <DirectionCard key={i} item={item} i={i} data={data} update={update} techIconsList={techIconsList} addTechIcon={name => setTechIconsList(prev => prev.includes(name) ? prev : [...prev, name])} />
-          ))}
+          <DraggableList items={data.directions.items} onReorder={arr => update(['directions', 'items'], arr)}>
+            {(item, i) => <DirectionCard item={item} i={i} data={data} update={update} techIconsList={techIconsList} addTechIcon={name => setTechIconsList(prev => prev.includes(name) ? prev : [...prev, name])} />}
+          </DraggableList>
           <button onClick={() => {
             update(['directions', 'items'], [...data.directions.items, { title: '', techs: [], content: '' }]);
           }} style={s.btnAdd}>+ Добавить направление</button>
@@ -238,40 +244,42 @@ function AdminPanel() {
         {/* -------------------- VACANCIES -------------------- */}
         <Section title="Вакансии">
           <Label>Вакансии</Label>
-          {data.vacancies.items.map((item, i) => (
-            <div key={i} style={s.card}>
-              <div style={s.cardFields}>
-                <input value={item.title} placeholder="Название вакансии"
-                  onChange={e => {
+          <DraggableList items={data.vacancies.items} onReorder={arr => update(['vacancies', 'items'], arr)}>
+            {(item, i) => (
+              <div style={s.card}>
+                <div style={s.cardFields}>
+                  <input value={item.title} placeholder="Название вакансии"
+                    onChange={e => {
+                      const arr = [...data.vacancies.items];
+                      arr[i] = { ...arr[i], title: e.target.value };
+                      update(['vacancies', 'items'], arr);
+                    }}
+                    style={s.input} />
+                  <input value={item.location} placeholder="Формат (удаленно / Йошмар-Ола)"
+                    onChange={e => {
+                      const arr = [...data.vacancies.items];
+                      arr[i] = { ...arr[i], location: e.target.value };
+                      update(['vacancies', 'items'], arr);
+                    }}
+                    style={s.input} />
+                  <input value={item.link} placeholder="Ссылка на hh.ru"
+                    onChange={e => {
+                      const arr = [...data.vacancies.items];
+                      arr[i] = { ...arr[i], link: e.target.value };
+                      update(['vacancies', 'items'], arr);
+                    }}
+                    style={s.input} />
+                </div>
+                <div style={s.cardActions}>
+                  <button onClick={() => {
                     const arr = [...data.vacancies.items];
-                    arr[i] = { ...arr[i], title: e.target.value };
+                    arr.splice(i, 1);
                     update(['vacancies', 'items'], arr);
-                  }}
-                  style={s.input} />
-                <input value={item.location} placeholder="Формат (удаленно / Йошмар-Ола)"
-                  onChange={e => {
-                    const arr = [...data.vacancies.items];
-                    arr[i] = { ...arr[i], location: e.target.value };
-                    update(['vacancies', 'items'], arr);
-                  }}
-                  style={s.input} />
-                <input value={item.link} placeholder="Ссылка на hh.ru"
-                  onChange={e => {
-                    const arr = [...data.vacancies.items];
-                    arr[i] = { ...arr[i], link: e.target.value };
-                    update(['vacancies', 'items'], arr);
-                  }}
-                  style={s.input} />
+                  }} style={s.btnDanger}>Удалить</button>
+                </div>
               </div>
-              <div style={s.cardActions}>
-                <button onClick={() => {
-                  const arr = [...data.vacancies.items];
-                  arr.splice(i, 1);
-                  update(['vacancies', 'items'], arr);
-                }} style={s.btnDanger}>Удалить</button>
-              </div>
-            </div>
-          ))}
+            )}
+          </DraggableList>
           <button onClick={() => {
             update(['vacancies', 'items'], [...data.vacancies.items, { title: '', location: '', link: '' }]);
           }} style={s.btnAdd}>+ Добавить вакансию</button>
@@ -289,33 +297,35 @@ function AdminPanel() {
 
         {/* -------------------- GALLERY -------------------- */}
         <Section title="Галерея">
-          {data.gallery.items.map((item, i) => (
-            <div key={i} style={s.card}>
-              <div style={s.cardFields}>
-                <input value={item.src} placeholder="Имя файла (images/gallery/)"
-                  onChange={e => {
+          <DraggableList items={data.gallery.items} onReorder={arr => update(['gallery', 'items'], arr)}>
+            {(item, i) => (
+              <div style={s.card}>
+                <div style={s.cardFields}>
+                  <input value={item.src} placeholder="Имя файла (images/gallery/)"
+                    onChange={e => {
+                      const arr = [...data.gallery.items];
+                      arr[i] = { ...arr[i], src: e.target.value };
+                      update(['gallery', 'items'], arr);
+                    }}
+                    style={s.input} />
+                  <input value={item.text} placeholder="Подпись к фото"
+                    onChange={e => {
+                      const arr = [...data.gallery.items];
+                      arr[i] = { ...arr[i], text: e.target.value };
+                      update(['gallery', 'items'], arr);
+                    }}
+                    style={s.input} />
+                </div>
+                <div style={s.cardActions}>
+                  <button onClick={() => {
                     const arr = [...data.gallery.items];
-                    arr[i] = { ...arr[i], src: e.target.value };
+                    arr.splice(i, 1);
                     update(['gallery', 'items'], arr);
-                  }}
-                  style={s.input} />
-                <input value={item.text} placeholder="Подпись к фото"
-                  onChange={e => {
-                    const arr = [...data.gallery.items];
-                    arr[i] = { ...arr[i], text: e.target.value };
-                    update(['gallery', 'items'], arr);
-                  }}
-                  style={s.input} />
+                  }} style={s.btnDanger}>Удалить</button>
+                </div>
               </div>
-              <div style={s.cardActions}>
-                <button onClick={() => {
-                  const arr = [...data.gallery.items];
-                  arr.splice(i, 1);
-                  update(['gallery', 'items'], arr);
-                }} style={s.btnDanger}>Удалить</button>
-              </div>
-            </div>
-          ))}
+            )}
+          </DraggableList>
           <button onClick={() => {
             update(['gallery', 'items'], [...data.gallery.items, { src: '', text: '' }]);
           }} style={s.btnAdd}>+ Добавить фото</button>
@@ -332,56 +342,58 @@ function AdminPanel() {
             onChange={e => update(['work', 'slogan'], e.target.value)}
             style={s.input} />
           <Label>Элементы</Label>
-          {data.work.items.map((item, i) => (
-            <div key={i} style={s.card}>
-              <div style={s.cardFields}>
-                <select value={item.type}
-                  onChange={e => {
-                    const arr = [...data.work.items];
-                    arr[i] = { ...arr[i], type: e.target.value };
-                    update(['work', 'items'], arr);
-                  }}
-                  style={s.input}>
-                  <option value="image">Изображение</option>
-                  <option value="text">Текст</option>
-                </select>
-                {item.type === 'image' && (
-                  <>
-                    <input value={item.city || ''} placeholder="Город"
-                      onChange={e => {
-                        const arr = [...data.work.items];
-                        arr[i] = { ...arr[i], city: e.target.value };
-                        update(['work', 'items'], arr);
-                      }}
-                      style={s.input} />
-                    <input value={item.src || ''} placeholder="Имя файла (gallery/)"
-                      onChange={e => {
-                        const arr = [...data.work.items];
-                        arr[i] = { ...arr[i], src: e.target.value };
-                        update(['work', 'items'], arr);
-                      }}
-                      style={s.input} />
-                  </>
-                )}
-                {item.type === 'text' && (
-                  <textarea value={item.text || ''} placeholder="Текст" rows={3}
+          <DraggableList items={data.work.items} onReorder={arr => update(['work', 'items'], arr)}>
+            {(item, i) => (
+              <div style={s.card}>
+                <div style={s.cardFields}>
+                  <select value={item.type}
                     onChange={e => {
                       const arr = [...data.work.items];
-                      arr[i] = { ...arr[i], text: e.target.value };
+                      arr[i] = { ...arr[i], type: e.target.value };
                       update(['work', 'items'], arr);
                     }}
-                    style={s.input} />
-                )}
+                    style={s.input}>
+                    <option value="image">Изображение</option>
+                    <option value="text">Текст</option>
+                  </select>
+                  {item.type === 'image' && (
+                    <>
+                      <input value={item.city || ''} placeholder="Город"
+                        onChange={e => {
+                          const arr = [...data.work.items];
+                          arr[i] = { ...arr[i], city: e.target.value };
+                          update(['work', 'items'], arr);
+                        }}
+                        style={s.input} />
+                      <input value={item.src || ''} placeholder="Имя файла (gallery/)"
+                        onChange={e => {
+                          const arr = [...data.work.items];
+                          arr[i] = { ...arr[i], src: e.target.value };
+                          update(['work', 'items'], arr);
+                        }}
+                        style={s.input} />
+                    </>
+                  )}
+                  {item.type === 'text' && (
+                    <textarea value={item.text || ''} placeholder="Текст" rows={3}
+                      onChange={e => {
+                        const arr = [...data.work.items];
+                        arr[i] = { ...arr[i], text: e.target.value };
+                        update(['work', 'items'], arr);
+                      }}
+                      style={s.input} />
+                  )}
+                </div>
+                <div style={s.cardActions}>
+                  <button onClick={() => {
+                    const arr = [...data.work.items];
+                    arr.splice(i, 1);
+                    update(['work', 'items'], arr);
+                  }} style={s.btnDanger}>Удалить</button>
+                </div>
               </div>
-              <div style={s.cardActions}>
-                <button onClick={() => {
-                  const arr = [...data.work.items];
-                  arr.splice(i, 1);
-                  update(['work', 'items'], arr);
-                }} style={s.btnDanger}>Удалить</button>
-              </div>
-            </div>
-          ))}
+            )}
+          </DraggableList>
           <button onClick={() => {
             update(['work', 'items'], [...data.work.items, { type: 'image', src: '', city: '' }]);
           }} style={s.btnAdd}>+ Добавить элемент</button>
@@ -394,33 +406,35 @@ function AdminPanel() {
             onChange={e => update(['bonus', 'title'], e.target.value)}
             style={s.input} />
           <Label>Элементы</Label>
-          {data.bonus.items.map((item, i) => (
-            <div key={i} style={s.card}>
-              <div style={s.cardFields}>
-                <input value={item.title} placeholder="Название"
-                  onChange={e => {
+          <DraggableList items={data.bonus.items} onReorder={arr => update(['bonus', 'items'], arr)}>
+            {(item, i) => (
+              <div style={s.card}>
+                <div style={s.cardFields}>
+                  <input value={item.title} placeholder="Название"
+                    onChange={e => {
+                      const arr = [...data.bonus.items];
+                      arr[i] = { ...arr[i], title: e.target.value };
+                      update(['bonus', 'items'], arr);
+                    }}
+                    style={s.input} />
+                  <textarea value={item.text || ''} placeholder="Описание" rows={3}
+                    onChange={e => {
+                      const arr = [...data.bonus.items];
+                      arr[i] = { ...arr[i], text: e.target.value };
+                      update(['bonus', 'items'], arr);
+                    }}
+                    style={s.input} />
+                </div>
+                <div style={s.cardActions}>
+                  <button onClick={() => {
                     const arr = [...data.bonus.items];
-                    arr[i] = { ...arr[i], title: e.target.value };
+                    arr.splice(i, 1);
                     update(['bonus', 'items'], arr);
-                  }}
-                  style={s.input} />
-                <textarea value={item.text || ''} placeholder="Описание" rows={3}
-                  onChange={e => {
-                    const arr = [...data.bonus.items];
-                    arr[i] = { ...arr[i], text: e.target.value };
-                    update(['bonus', 'items'], arr);
-                  }}
-                  style={s.input} />
+                  }} style={s.btnDanger}>Удалить</button>
+                </div>
               </div>
-              <div style={s.cardActions}>
-                <button onClick={() => {
-                  const arr = [...data.bonus.items];
-                  arr.splice(i, 1);
-                  update(['bonus', 'items'], arr);
-                }} style={s.btnDanger}>Удалить</button>
-              </div>
-            </div>
-          ))}
+            )}
+          </DraggableList>
           <button onClick={() => {
             update(['bonus', 'items'], [...data.bonus.items, { title: '', text: '' }]);
           }} style={s.btnAdd}>+ Добавить бонус</button>
@@ -506,9 +520,13 @@ function YearBlock({ group, gi, data, update }) {
       </button>
       {open && (
         <div style={{ marginTop: 16 }}>
-          {group.entries.map((entry, ei) => (
-            <PlatformEntry key={ei} entry={entry} ei={ei} gi={gi} data={data} update={update} />
-          ))}
+          <DraggableList items={group.entries} onReorder={(entries) => {
+            const arr = [...data.platform];
+            arr[gi] = { ...arr[gi], entries };
+            update(['platform'], arr);
+          }}>
+            {(entry, ei) => <PlatformEntry entry={entry} ei={ei} gi={gi} data={data} update={update} />}
+          </DraggableList>
           <button onClick={() => {
             const arr = [...data.platform];
             const entries = [...arr[gi].entries, { title: '', description: '', icon: 'star', iconColor: '#507bce' }];
@@ -758,6 +776,35 @@ function DirectionCard({ item, i, data, update, techIconsList, addTechIcon }) {
       </div>
     </div>
   );
+}
+
+function DraggableList({ items, onReorder, children }) {
+  const [dragIdx, setDragIdx] = useState(null);
+
+  return items.map((item, i) => (
+    <div
+      key={item.id ?? item.key ?? i}
+      draggable
+      onDragStart={() => setDragIdx(i)}
+      onDragOver={(e) => { e.preventDefault(); }}
+      onDrop={() => {
+        if (dragIdx === null || dragIdx === i) { setDragIdx(null); return; }
+        const arr = [...items];
+        const [m] = arr.splice(dragIdx, 1);
+        arr.splice(i, 0, m);
+        onReorder(arr);
+        setDragIdx(null);
+      }}
+      onDragEnd={() => setDragIdx(null)}
+      style={{ opacity: dragIdx === i ? 0.3 : 1, transition: 'opacity 0.15s' }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4, color: '#b0b4c4', fontSize: 13, userSelect: 'none', cursor: 'grab' }}>
+        <span style={{ fontSize: 16, lineHeight: '1' }}>⠿</span>
+        <span style={{ fontSize: 11 }}>перетащить</span>
+      </div>
+      {children(item, i)}
+    </div>
+  ));
 }
 
 const s = {
