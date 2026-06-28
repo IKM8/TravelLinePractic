@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { updateData } from '../utils/updateData';
 import { s } from '../utils/adminStyles';
 import HeroSection from '../components/admin/HeroSection';
@@ -17,6 +18,7 @@ import SaveBar from '../components/admin/SaveBar';
 const API = '/api/page-data';
 
 function AdminPanel() {
+  const { token, logout } = useAuth();
   const [data, setData] = useState(null);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState({ text: '', ok: false });
@@ -28,6 +30,8 @@ function AdminPanel() {
   ]);
 
   const addTechIcon = name => setTechIconsList(prev => prev.includes(name) ? prev : [...prev, name]);
+
+  const authHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
 
   useEffect(() => {
     fetch(API)
@@ -42,9 +46,10 @@ function AdminPanel() {
     try {
       const res = await fetch(API, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders,
         body: JSON.stringify(data),
       });
+      if (res.status === 401) { logout(); return; }
       const result = await res.json();
       setMessage({ text: result.success ? 'Сохранено!' : 'Ошибка при сохранении', ok: result.success });
     } catch {
@@ -62,7 +67,10 @@ function AdminPanel() {
       <header style={s.header}>
         <div style={s.headerInner}>
           <h1 style={s.title}>Админ-панель</h1>
-          <a href="/" style={s.link}>На сайт</a>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <a href="/" style={s.link}>На сайт</a>
+            <button onClick={logout} style={{ ...s.link, border: 'none', background: 'none', cursor: 'pointer' }}>Выйти</button>
+          </div>
         </div>
       </header>
       <main style={s.main}>

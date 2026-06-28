@@ -3,9 +3,19 @@ const cors = require('cors');
 const { Pool } = require('pg');
 const fs = require('fs');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+const JWT_SECRET = process.env.JWT_SECRET || 'supersecretkey123';
+
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
+  console.error('ADMIN_EMAIL and ADMIN_PASSWORD must be set');
+  process.exit(1);
+}
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -52,7 +62,33 @@ app.get('/api/page-data', async (req, res) => {
   }
 });
 
-app.post('/api/page-data', async (req, res) => {
+function authMiddleware(req, res, next) {
+  const auth = req.headers.authorization;
+  if (!auth || !auth.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+  try {
+    req.user = jwt.verify(auth.slice(7), JWT_SECRET);
+    next();
+  } catch {
+    return res.status(401).json({ error: 'Invalid or expired token' });
+  }
+}
+
+app.post('/api/login', (req, res) => {
+  const { email, password } = req.body;
+  if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '24h' });
+    return res.json({ token });
+  }
+  return res.status(401).json({ error: 'Неверный email или пароль' });
+});
+
+app.get('/api/me', authMiddleware, (req, res) => {
+  res.json({ email: req.user.email });
+});
+
+app.post('/api/page-data', authMiddleware, async (req, res) => {
   try {
     const data = req.body;
     for (const [key, value] of Object.entries(data)) {

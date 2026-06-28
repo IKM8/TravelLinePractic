@@ -24,6 +24,13 @@ jobs:
 
   api:
     runs-on: ubuntu-latest
+    env:
+      POSTGRES_USER: tl_user
+      POSTGRES_PASSWORD: tl_pass
+      POSTGRES_DB: travelline
+      DATABASE_URL: postgres://tl_user:tl_pass@db:5432/travelline
+      ADMIN_EMAIL: admin@travelline.tech
+      ADMIN_PASSWORD: admin123
     steps:
       - uses: actions/checkout@v4
       - name: Start Docker
@@ -31,7 +38,7 @@ jobs:
       - name: Run API smoke test
         run: |
           sleep 10
-          docker compose exec -T app node server/api-test.mjs
+          docker compose exec -T -e ADMIN_EMAIL -e ADMIN_PASSWORD app node server/api-test.mjs
       - name: Stop Docker
         if: always()
         run: docker compose down

@@ -17,11 +17,24 @@ async function test() {
   }
   ok(`все ${expected.length} секций на месте: ${keys.join(', ')}`);
 
+  // Логин для получения токена
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminEmail || !adminPassword) throw new Error('ADMIN_EMAIL and ADMIN_PASSWORD env vars required');
+  const loginRes = await fetch(`${BASE}/api/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: adminEmail, password: adminPassword }),
+  });
+  if (loginRes.status !== 200) fail('POST /api/login', new Error(`status ${loginRes.status}`));
+  const { token } = await loginRes.json();
+  ok('получен токен');
+
   // POST /api/page-data — сохраняет данные
   data.hero.title = ['Новый заголовок', 'тест'];
   const res2 = await fetch(`${BASE}/api/page-data`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
     body: JSON.stringify(data),
   });
   if (res2.status !== 200) fail('POST /api/page-data', new Error(`status ${res2.status}`));
@@ -37,7 +50,7 @@ async function test() {
   saved.hero.title = ['Стабильно растем', 'и принимаем новые вызовы', 'TravelTech индустрии'];
   await fetch(`${BASE}/api/page-data`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
     body: JSON.stringify(saved),
   });
   ok('оригинальные данные восстановлены');

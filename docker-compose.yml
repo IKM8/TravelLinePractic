@@ -7,21 +7,23 @@ services:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgres://tl_user:tl_pass@db:5432/travelline
+      DATABASE_URL: ${DATABASE_URL}
       PORT: "5000"
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
 
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: tl_user
-      POSTGRES_PASSWORD: tl_pass
-      POSTGRES_DB: travelline
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tl_user -d travelline"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
       retries: 5
 
